@@ -163,54 +163,9 @@ namespace VSIXInteropFormsToolkit
 
         private void CreateInteropFormProxiesForDocument(List<CodeClass> interopFormClasses, Project currentAssembly, ProjectItem interopFormDoc)
         {
-            ProjectItem generatedFolderItem = null;
+
             if (interopFormClasses.Count <= 0)
                 return;
-
-            FileInfo infoProjectItem = new FileInfo(interopFormDoc.get_FileNames(0));
-            DirectoryInfo generatedFolder = new DirectoryInfo(infoProjectItem.DirectoryName + @"\" + Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
-            foreach (ProjectItem item in currentAssembly.ProjectItems)
-            {
-                if ((String.Compare(item.Kind, Resource.FOLDER_TYPE, false) == 0) &&
-                    (String.Compare(item.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME, false) == 0))
-                {
-                    generatedFolderItem = item;
-                    break;
-                }
-            }
-
-            // create interop forms directory
-            if (generatedFolderItem == null)
-            {
-                if (!generatedFolder.Exists)
-                {
-                    generatedFolderItem = currentAssembly.ProjectItems.AddFolder(generatedFolder.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
-                }
-                else
-                {
-                    generatedFolder.Delete(true);
-                    generatedFolderItem = currentAssembly.ProjectItems.AddFolder(generatedFolder.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
-                }
-            }
-
-            string generatedItemFullName = generatedFolder.FullName + @"\" + infoProjectItem.Name.Replace(infoProjectItem.Extension, ".wrapper" + infoProjectItem.Extension);
-            FileInfo info2 = new FileInfo(generatedItemFullName);
-            foreach (ProjectItem item in generatedFolderItem.ProjectItems)
-            {
-                if (String.Compare(item.Kind, Resource.DOCUMENT_TYPE, false) != 0 || String.Compare(item.Name, info2.Name, false) != 0)
-                    continue; ;
-
-                if (currentAssembly.DTE.SourceControl.IsItemUnderSCC(generatedItemFullName) && !item.Collection.ContainingProject.DTE.SourceControl.IsItemCheckedOut(generatedItemFullName))
-                {
-                    item.Collection.ContainingProject.DTE.SourceControl.CheckOutItem(generatedItemFullName);
-                }
-                break;
-            }
-
-            if (info2.Exists)
-            {
-                info2.Delete();
-            }
 
             CodeCompileUnit unit1 = new CodeCompileUnit();
             CodeNamespaceImport import1 = new CodeNamespaceImport(this._attrTypeForm.Namespace);
@@ -304,14 +259,78 @@ namespace VSIXInteropFormsToolkit
                 }
             }
 
-            StreamWriter writer1 = new StreamWriter(info2.Create());
+
+            ProjectItem generatedFolderItem = GetGeneratedFolderItem(currentAssembly);
+            FileInfo generatedItemInfo = getGeneratedItem(currentAssembly, generatedFolderItem, interopFormDoc);
+
+            StreamWriter writer1 = new StreamWriter(generatedItemInfo.Create());
             writer1.AutoFlush = true;
             CodeDomProvider provider = GetProvider();
             CodeGeneratorOptions options1 = new CodeGeneratorOptions();
             provider.GenerateCodeFromCompileUnit(unit1, writer1, options1);
             writer1.Close();
             writer1.Dispose();
-            generatedFolderItem.ProjectItems.AddFromFile(info2.FullName);
+            generatedFolderItem.ProjectItems.AddFromFile(generatedItemInfo.FullName);
+        }
+
+        private FileInfo getGeneratedItem(Project currentAssembly, ProjectItem generatedFolderItem, ProjectItem interopFormDoc)
+        {
+            FileInfo infoProjectItem = new FileInfo(interopFormDoc.get_FileNames(0));
+            string name = infoProjectItem.Name.Replace(infoProjectItem.Extension, ".wrapper" + infoProjectItem.Extension);
+            string folder = Path.GetDirectoryName(infoProjectItem.FullName.Replace(Path.GetDirectoryName(currentAssembly.FullName), Path.GetDirectoryName(currentAssembly.FullName) + @"\" + Resource.INTEROP_FORM_PROXY_FOLDER_NAME));
+            string fullName = folder + @"\" + name;
+
+            var d = new DirectoryInfo(folder);
+            if (!d.Exists)
+            {
+                d.Create();
+            }
+
+            FileInfo infoGeneratedItem = new FileInfo(fullName);
+            foreach (ProjectItem item in generatedFolderItem.ProjectItems)
+            {
+                if (String.Compare(item.Kind, Resource.DOCUMENT_TYPE, false) != 0 || String.Compare(item.Name, infoGeneratedItem.Name, false) != 0)
+                    continue; ;
+
+                if (currentAssembly.DTE.SourceControl.IsItemUnderSCC(fullName) && !item.Collection.ContainingProject.DTE.SourceControl.IsItemCheckedOut(fullName))
+                {
+                    item.Collection.ContainingProject.DTE.SourceControl.CheckOutItem(fullName);
+                }
+                break;
+            }
+
+            if (infoGeneratedItem.Exists)
+            {
+                infoGeneratedItem.Delete();
+            }
+
+            return infoGeneratedItem;
+        }
+
+        private ProjectItem GetGeneratedFolderItem(Project currentAssembly )
+        {
+            ProjectItem generatedFolderItem = null;
+            foreach (ProjectItem item in currentAssembly.ProjectItems)
+            {
+                if ((String.Compare(item.Kind, Resource.FOLDER_TYPE, false) == 0) &&
+                    (String.Compare(item.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME, false) == 0))
+                {
+                    generatedFolderItem = item;
+                    break;
+                }
+            }
+
+            if (generatedFolderItem == null)
+            {
+                DirectoryInfo generatedFolder = new DirectoryInfo(Path.GetDirectoryName(currentAssembly.FullName) + @"\" + Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
+                if (generatedFolder.Exists)
+                {
+                    generatedFolder.Delete(true);
+                }
+                generatedFolderItem = currentAssembly.ProjectItems.AddFolder(generatedFolder.Name, Resource.FOLDER_TYPE);
+            }
+
+            return generatedFolderItem;
         }
 
         private void DisplayError(string errorMessage)
