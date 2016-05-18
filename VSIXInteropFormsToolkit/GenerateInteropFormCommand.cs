@@ -124,11 +124,11 @@ namespace VSIXInteropFormsToolkit
         private void CreateInteropFormProxiesForSolution()
         {
             this._applicationObject.StatusBar.Text = Resource.ADDIN_STATUS_GENERATING;
-            foreach (Project project1 in this._applicationObject.Solution.Projects)
+            foreach (Project project in this._applicationObject.Solution.Projects)
             {
-                if ((project1.ProjectItems != null) && (project1.ProjectItems.Count > 0))
+                if ((project.ProjectItems != null) && (project.ProjectItems.Count > 0))
                 {
-                    this.CreateInteropFormProxiesForProject(project1, project1.ProjectItems);
+                    this.CreateInteropFormProxiesForProject(project, project.ProjectItems);
                 }
             }
             this._applicationObject.StatusBar.Text = Resource.ADDIN_STATUS_GENERATED_OK;
@@ -137,25 +137,25 @@ namespace VSIXInteropFormsToolkit
         private void CreateInteropFormProxiesForProject(Project currentAssembly, ProjectItems projItemCollection)
         {
             IsVB = (String.Compare(currentAssembly.CodeModel.Language, Resource.LanguageVB, false) == 0);
-            foreach (ProjectItem item1 in projItemCollection)
+            foreach (ProjectItem item in projItemCollection)
             {
                 try
                 {
-                    if ((String.Compare(item1.Kind, Resource.DOCUMENT_TYPE, false) == 0) && (item1.FileCodeModel != null))
+                    if ((String.Compare(item.Kind, Resource.DOCUMENT_TYPE, false) == 0) && (item.FileCodeModel != null))
                     {
-                        List<CodeClass> list1 = this.GetInteropFormClasses(currentAssembly, item1);
-                        this.CreateInteropFormProxiesForDocument(list1, currentAssembly, item1);
+                        List<CodeClass> codeClasses = this.GetInteropFormClasses(currentAssembly, item);
+                        this.CreateInteropFormProxiesForDocument(codeClasses, currentAssembly, item);
                         continue;
                     }
-                    if ((item1.ProjectItems != null) && (item1.ProjectItems.Count > 0))
+                    if ((item.ProjectItems != null) && (item.ProjectItems.Count > 0))
                     {
-                        this.CreateInteropFormProxiesForProject(currentAssembly, item1.ProjectItems);
+                        this.CreateInteropFormProxiesForProject(currentAssembly, item.ProjectItems);
                     }
                     continue;
                 }
-                catch (Exception exception2)
+                catch (Exception exception)
                 {
-                    this.DisplayError(String.Format(Resource.ADDIN_STATUS_GENERATED_ERROR_FULL, currentAssembly.Name) + "\n" + exception2.ToString());
+                    this.DisplayError(String.Format(Resource.ADDIN_STATUS_GENERATED_ERROR_FULL, currentAssembly.Name) + "\n" + exception.ToString());
                     continue;
                 }
             }
@@ -163,45 +163,46 @@ namespace VSIXInteropFormsToolkit
 
         private void CreateInteropFormProxiesForDocument(List<CodeClass> interopFormClasses, Project currentAssembly, ProjectItem interopFormDoc)
         {
-            ProjectItem item2 = null;
+            ProjectItem generatedFolderItem = null;
             if (interopFormClasses.Count <= 0)
                 return;
 
-            FileInfo info1 = new FileInfo(interopFormDoc.get_FileNames(0));
-            DirectoryInfo info3 = new DirectoryInfo(info1.DirectoryName + @"\" + Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
-            foreach (ProjectItem item3 in currentAssembly.ProjectItems)
+            FileInfo infoProjectItem = new FileInfo(interopFormDoc.get_FileNames(0));
+            DirectoryInfo generatedFolder = new DirectoryInfo(infoProjectItem.DirectoryName + @"\" + Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
+            foreach (ProjectItem item in currentAssembly.ProjectItems)
             {
-                if ((String.Compare(item3.Kind, Resource.FOLDER_TYPE, false) == 0) &&
-                    (String.Compare(item3.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME, false) == 0))
+                if ((String.Compare(item.Kind, Resource.FOLDER_TYPE, false) == 0) &&
+                    (String.Compare(item.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME, false) == 0))
                 {
-                    item2 = item3;
+                    generatedFolderItem = item;
                     break;
                 }
             }
 
-            if (item2 == null)
+            // create interop forms directory
+            if (generatedFolderItem == null)
             {
-                if (!info3.Exists)
+                if (!generatedFolder.Exists)
                 {
-                    item2 = currentAssembly.ProjectItems.AddFolder(info3.Name, "{6BB5F8EF-4483-11D3-8BCF-00C04F8EC28C}");
+                    generatedFolderItem = currentAssembly.ProjectItems.AddFolder(generatedFolder.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
                 }
                 else
                 {
-                    info3.Delete(true);
-                    item2 = currentAssembly.ProjectItems.AddFolder(info3.Name, "{6BB5F8EF-4483-11D3-8BCF-00C04F8EC28C}");
+                    generatedFolder.Delete(true);
+                    generatedFolderItem = currentAssembly.ProjectItems.AddFolder(generatedFolder.Name, Resource.INTEROP_FORM_PROXY_FOLDER_NAME);
                 }
             }
-            string text1 = info3.FullName + @"\" + info1.Name.Replace(info1.Extension, ".wrapper" + info1.Extension);
-            FileInfo info2 = new FileInfo(text1);
-            foreach (ProjectItem item4 in item2.ProjectItems)
+
+            string generatedItemFullName = generatedFolder.FullName + @"\" + infoProjectItem.Name.Replace(infoProjectItem.Extension, ".wrapper" + infoProjectItem.Extension);
+            FileInfo info2 = new FileInfo(generatedItemFullName);
+            foreach (ProjectItem item in generatedFolderItem.ProjectItems)
             {
-                if (String.Compare(item4.Kind, Resource.DOCUMENT_TYPE, false) != 0 || String.Compare(item4.Name, info2.Name, false) != 0)
+                if (String.Compare(item.Kind, Resource.DOCUMENT_TYPE, false) != 0 || String.Compare(item.Name, info2.Name, false) != 0)
                     continue; ;
 
-                ProjectItem item1 = item4;
-                if (currentAssembly.DTE.SourceControl.IsItemUnderSCC(text1) && !item4.Collection.ContainingProject.DTE.SourceControl.IsItemCheckedOut(text1))
+                if (currentAssembly.DTE.SourceControl.IsItemUnderSCC(generatedItemFullName) && !item.Collection.ContainingProject.DTE.SourceControl.IsItemCheckedOut(generatedItemFullName))
                 {
-                    item4.Collection.ContainingProject.DTE.SourceControl.CheckOutItem(text1);
+                    item.Collection.ContainingProject.DTE.SourceControl.CheckOutItem(generatedItemFullName);
                 }
                 break;
             }
@@ -210,6 +211,7 @@ namespace VSIXInteropFormsToolkit
             {
                 info2.Delete();
             }
+
             CodeCompileUnit unit1 = new CodeCompileUnit();
             CodeNamespaceImport import1 = new CodeNamespaceImport(this._attrTypeForm.Namespace);
             System.CodeDom.CodeNamespace namespace1 = new System.CodeDom.CodeNamespace();
@@ -286,8 +288,7 @@ namespace VSIXInteropFormsToolkit
                                     {
                                         if (this.AttributesMatch(element3, this._attrTypeEvent))
                                         {
-                                            this.AddEvent(currentAssembly,
-                                                declaration1, class1, event1, declaration2);
+                                            this.AddEvent(currentAssembly, declaration1, class1, event1, declaration2);
                                             break;
                                         }
                                     }
@@ -302,6 +303,7 @@ namespace VSIXInteropFormsToolkit
                     declaration1.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.InteropServices.ComSourceInterfaces", new System.CodeDom.CodeAttributeArgument[] { new System.CodeDom.CodeAttributeArgument(new CodeTypeOfExpression(declaration2.Name)) }));
                 }
             }
+
             StreamWriter writer1 = new StreamWriter(info2.Create());
             writer1.AutoFlush = true;
             CodeDomProvider provider = GetProvider();
@@ -309,7 +311,7 @@ namespace VSIXInteropFormsToolkit
             provider.GenerateCodeFromCompileUnit(unit1, writer1, options1);
             writer1.Close();
             writer1.Dispose();
-            item2.ProjectItems.AddFromFile(info2.FullName);
+            generatedFolderItem.ProjectItems.AddFromFile(info2.FullName);
         }
 
         private void DisplayError(string errorMessage)
@@ -351,8 +353,7 @@ namespace VSIXInteropFormsToolkit
         }
 
 
-        private void AddInitializeMethodForConstructor(CodeTypeDeclaration proxyClass,
-            CodeClass interopFormClass, CodeFunction method)
+        private void AddInitializeMethodForConstructor(CodeTypeDeclaration proxyClass, CodeClass interopFormClass, CodeFunction method)
         {
             CodeMemberMethod method1 = new CodeMemberMethod();
             method1.Name = "Initialize";
@@ -514,8 +515,7 @@ namespace VSIXInteropFormsToolkit
             return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, statementFormat, interopFormClass.FullName));
         }
 
-        private void AddProperty(CodeTypeDeclaration proxyClass,
-            CodeClass interopFormClass, CodeProperty prop)
+        private void AddProperty(CodeTypeDeclaration proxyClass, CodeClass interopFormClass, CodeProperty prop)
         {
             CodeMemberProperty property1 = new CodeMemberProperty();
             property1.Name = prop.Name;
@@ -540,8 +540,8 @@ namespace VSIXInteropFormsToolkit
             }
             proxyClass.Members.Add(property1);
         }
-        private void AddMethod(CodeTypeDeclaration proxyClass,
-            CodeClass interopFormClass, CodeFunction method)
+
+        private void AddMethod(CodeTypeDeclaration proxyClass, CodeClass interopFormClass, CodeFunction method)
         {
             CodeMemberMethod method1 = new CodeMemberMethod();
             method1.Name = method.Name;
