@@ -70,24 +70,6 @@ namespace VSIXInteropFormsToolkit {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error Creating InteropForm Wrapper Classes.
-        /// </summary>
-        internal static string ADDIN_STATUS_GENERATED_ERROR1 {
-            get {
-                return ResourceManager.GetString("ADDIN_STATUS_GENERATED_ERROR1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to   for Project {0}.
-        /// </summary>
-        internal static string ADDIN_STATUS_GENERATED_ERROR2 {
-            get {
-                return ResourceManager.GetString("ADDIN_STATUS_GENERATED_ERROR2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to InteropForm Wrapper Classes Generated.
         /// </summary>
         internal static string ADDIN_STATUS_GENERATED_OK {
@@ -102,42 +84,6 @@ namespace VSIXInteropFormsToolkit {
         internal static string ADDIN_STATUS_GENERATING {
             get {
                 return ResourceManager.GetString("ADDIN_STATUS_GENERATING", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There was a problem connecting to the Interop Forms Toolkit AddIn.  Error message was {0}.
-        /// </summary>
-        internal static string AddinConnectErrMsg {
-            get {
-                return ResourceManager.GetString("AddinConnectErrMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Generate InteropForm Wrapper Classes.
-        /// </summary>
-        internal static string COMMAND_DISPLAY_NAME {
-            get {
-                return ResourceManager.GetString("COMMAND_DISPLAY_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MenuBar.
-        /// </summary>
-        internal static string CommandBarsItemMenuBar {
-            get {
-                return ResourceManager.GetString("CommandBarsItemMenuBar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There was a problem creating InteropForm Wrapper Classes.  The error was {0}.
-        /// </summary>
-        internal static string CreateWrappersErrMsg {
-            get {
-                return ResourceManager.GetString("CreateWrappersErrMsg", resourceCulture);
             }
         }
         
@@ -232,15 +178,6 @@ namespace VSIXInteropFormsToolkit {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Global::ctrl+shift+g.
-        /// </summary>
-        internal static string KeyBinding {
-            get {
-                return ResourceManager.GetString("KeyBinding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}.
         /// </summary>
         internal static string LanguageCS {
@@ -286,38 +223,11 @@ namespace VSIXInteropFormsToolkit {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameterized properties are not supported. Property {0} will not be generated..
-        /// </summary>
-        internal static string ParamPropertyErrMsg {
-            get {
-                return ResourceManager.GetString("ParamPropertyErrMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Type {0} is not supported. Property {1} will not be generated..
         /// </summary>
         internal static string PropertyErrMsg {
             get {
                 return ResourceManager.GetString("PropertyErrMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There was a problem Querying Status of AddIn.  The error was {0}.
-        /// </summary>
-        internal static string QueryStatusErrMsg {
-            get {
-                return ResourceManager.GetString("QueryStatusErrMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tools.
-        /// </summary>
-        internal static string ToolsMenuNameDefault {
-            get {
-                return ResourceManager.GetString("ToolsMenuNameDefault", resourceCulture);
             }
         }
     }

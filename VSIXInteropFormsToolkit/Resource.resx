@@ -120,29 +120,11 @@
   <data name="ADDIN_STATUS_GENERATED_ERROR_FULL" xml:space="preserve">
     <value>Error Creating InteropForm Wrapper Classes for Project {0}</value>
   </data>
-  <data name="ADDIN_STATUS_GENERATED_ERROR1" xml:space="preserve">
-    <value>Error Creating InteropForm Wrapper Classes</value>
-  </data>
-  <data name="ADDIN_STATUS_GENERATED_ERROR2" xml:space="preserve">
-    <value>  for Project {0}</value>
-  </data>
   <data name="ADDIN_STATUS_GENERATED_OK" xml:space="preserve">
     <value>InteropForm Wrapper Classes Generated</value>
   </data>
   <data name="ADDIN_STATUS_GENERATING" xml:space="preserve">
     <value>Generating InteropForm Wrapper Classes...</value>
-  </data>
-  <data name="AddinConnectErrMsg" xml:space="preserve">
-    <value>There was a problem connecting to the Interop Forms Toolkit AddIn.  Error message was {0}</value>
-  </data>
-  <data name="COMMAND_DISPLAY_NAME" xml:space="preserve">
-    <value>Generate InteropForm Wrapper Classes</value>
-  </data>
-  <data name="CommandBarsItemMenuBar" xml:space="preserve">
-    <value>MenuBar</value>
-  </data>
-  <data name="CreateWrappersErrMsg" xml:space="preserve">
-    <value>There was a problem creating InteropForm Wrapper Classes.  The error was {0}</value>
   </data>
   <data name="DISPLAY_CAPTION" xml:space="preserve">
     <value>InteropForm Wrapper Class Generator</value>
@@ -174,9 +156,6 @@
   <data name="INTEROP_FORM_PROXY_FOLDER_NAME" xml:space="preserve">
     <value>InteropForm Wrapper Classes</value>
   </data>
-  <data name="KeyBinding" xml:space="preserve">
-    <value>Global::ctrl+shift+g</value>
-  </data>
   <data name="LanguageCS" xml:space="preserve">
     <value>{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}</value>
   </data>
@@ -192,16 +171,7 @@
   <data name="MethodErrMsg2" xml:space="preserve">
     <value>Type {0} is not supported. Method {1} will not be generated.</value>
   </data>
-  <data name="ParamPropertyErrMsg" xml:space="preserve">
-    <value>Parameterized properties are not supported. Property {0} will not be generated.</value>
-  </data>
   <data name="PropertyErrMsg" xml:space="preserve">
     <value>Type {0} is not supported. Property {1} will not be generated.</value>
-  </data>
-  <data name="QueryStatusErrMsg" xml:space="preserve">
-    <value>There was a problem Querying Status of AddIn.  The error was {0}</value>
-  </data>
-  <data name="ToolsMenuNameDefault" xml:space="preserve">
-    <value>Tools</value>
   </data>
 </root>
