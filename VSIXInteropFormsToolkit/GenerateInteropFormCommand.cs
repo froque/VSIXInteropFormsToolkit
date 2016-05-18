@@ -1,14 +1,7 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="GenerateInteropFormCommand.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using System.Globalization;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 using EnvDTE;
 using EnvDTE80;
@@ -81,9 +74,7 @@ namespace VSIXInteropFormsToolkit
             }
             catch (Exception exception1)
             {
-                //ProjectData.SetProjectError(exception1);
-                this.DisplayError(Resource.LoadSupportedTypesErrMsg);
-                //ProjectData.ClearProjectError();
+                this.DisplayError(Resource.LoadSupportedTypesErrMsg + "\n" + exception1.ToString());
             }
         }
 
@@ -140,21 +131,17 @@ namespace VSIXInteropFormsToolkit
                     this.CreateInteropFormProxiesForProject(project1, project1.ProjectItems);
                 }
             }
-            this._applicationObject.StatusBar.Text =
-                Resource.ADDIN_STATUS_GENERATED_OK;
+            this._applicationObject.StatusBar.Text = Resource.ADDIN_STATUS_GENERATED_OK;
         }
 
         private void CreateInteropFormProxiesForProject(Project currentAssembly, ProjectItems projItemCollection)
         {
-            IsVB = (String.Compare(currentAssembly.CodeModel.Language,
-                Resource.LanguageVB, false) == 0);
+            IsVB = (String.Compare(currentAssembly.CodeModel.Language, Resource.LanguageVB, false) == 0);
             foreach (ProjectItem item1 in projItemCollection)
             {
                 try
                 {
-                    if ((String.Compare(item1.Kind,
-                        Resource.DOCUMENT_TYPE, false) == 0) &&
-                        (item1.FileCodeModel != null))
+                    if ((String.Compare(item1.Kind, Resource.DOCUMENT_TYPE, false) == 0) && (item1.FileCodeModel != null))
                     {
                         List<CodeClass> list1 = this.GetInteropFormClasses(currentAssembly, item1);
                         this.CreateInteropFormProxiesForDocument(list1, currentAssembly, item1);
@@ -168,23 +155,13 @@ namespace VSIXInteropFormsToolkit
                 }
                 catch (Exception exception2)
                 {
-                    //ProjectData.SetProjectError(exception2);
-                    Exception exception1 = exception2;
-                    string text1 = Resource.ADDIN_STATUS_GENERATED_ERROR1;
-                    if ((currentAssembly != null) && (currentAssembly.Name != null))
-                    {
-                        text1 += String.Format(Resource.ADDIN_STATUS_GENERATED_ERROR2,
-                            currentAssembly.Name);
-                    }
-                    this.DisplayError(String.Format(Resource.ADDIN_STATUS_GENERATED_ERROR_FULL, currentAssembly.Name));
-                    //ProjectData.ClearProjectError();
+                    this.DisplayError(String.Format(Resource.ADDIN_STATUS_GENERATED_ERROR_FULL, currentAssembly.Name) + "\n" + exception2.ToString());
                     continue;
                 }
             }
         }
 
-        private void CreateInteropFormProxiesForDocument(List<CodeClass> interopFormClasses,
-            Project currentAssembly, ProjectItem interopFormDoc)
+        private void CreateInteropFormProxiesForDocument(List<CodeClass> interopFormClasses, Project currentAssembly, ProjectItem interopFormDoc)
         {
             ProjectItem item2 = null;
             if (interopFormClasses.Count <= 0)
@@ -337,25 +314,17 @@ namespace VSIXInteropFormsToolkit
 
         private void DisplayError(string errorMessage)
         {
-            MessageBox.Show(errorMessage, Resource.DISPLAY_CAPTION,
-                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(errorMessage, Resource.DISPLAY_CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private CodeSnippetStatement GetStatementInitializeForm(string typeName)
         {
-            CodeSnippetStatement statement1 = new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture,
-                                "\t\t\tFormInstance = {0} {1}(){2}",
-                                statementNew, typeName, statementTerminator));
-            return statement1;
+            return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, "\t\t\tFormInstance = {0} {1}(){2}", statementNew, typeName, statementTerminator));
         }
 
         private CodeSnippetStatement GetStatementRegisterForm()
         {
-            CodeSnippetStatement statement = new CodeSnippetStatement(
-                String.Format(CultureInfo.InvariantCulture,
-                "\t\t\tRegisterFormInstance(){0}",
-                statementTerminator));
-            return statement;
+            return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, "\t\t\tRegisterFormInstance(){0}", statementTerminator));
         }
 
 
@@ -389,15 +358,13 @@ namespace VSIXInteropFormsToolkit
             method1.Name = "Initialize";
             method1.Attributes = MemberAttributes.Public;
             method1.CustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.DebuggerStepThrough"));
-            string text1 = String.Format(CultureInfo.InvariantCulture,
-                "\t\t\tFormInstance = {0} {1}(", statementNew, interopFormClass.FullName);
+            string text1 = String.Format(CultureInfo.InvariantCulture, "\t\t\tFormInstance = {0} {1}(", statementNew, interopFormClass.FullName);
             bool flag1 = false;
             foreach (CodeParameter parameter1 in method.Parameters)
             {
                 if (!this.IsSupported(parameter1.Type))
                 {
-                    this.DisplayWarning(String.Format(Resource.InitMethodErrMsg,
-                        parameter1.Type.AsFullName, parameter1.Name, parameter1.Type.AsFullName));
+                    this.DisplayWarning(String.Format(Resource.InitMethodErrMsg, parameter1.Type.AsFullName, parameter1.Name, parameter1.Type.AsFullName));
                     return;
                 }
                 CodeParameterDeclarationExpression expression1 = new CodeParameterDeclarationExpression(parameter1.Type.AsFullName, parameter1.Name);
@@ -410,11 +377,9 @@ namespace VSIXInteropFormsToolkit
                 flag1 = true;
             }
             text1 = text1 + ")" + statementTerminator;
-            method1.Statements.Add(new CodeSnippetStatement(
-                String.Format("\t\t\tUnregisterFormInstance(){0}", statementTerminator)));
+            method1.Statements.Add(new CodeSnippetStatement(String.Format("\t\t\tUnregisterFormInstance(){0}", statementTerminator)));
             method1.Statements.Add(new CodeSnippetStatement(text1));
-            method1.Statements.Add(new CodeSnippetStatement(
-                String.Format("\t\t\tRegisterFormInstance(){0}", statementTerminator)));
+            method1.Statements.Add(new CodeSnippetStatement(String.Format("\t\t\tRegisterFormInstance(){0}", statementTerminator)));
             proxyClass.Members.Add(method1);
         }
 
@@ -430,8 +395,6 @@ namespace VSIXInteropFormsToolkit
             }
             catch (Exception exception2)
             {
-                //ProjectData.SetProjectError(exception2);
-                Exception exception1 = exception2;
                 foreach (CodeElement element1 in evt.ProjectItem.FileCodeModel.CodeElements)
                 {
                     if (element1.IsCodeType)
@@ -448,12 +411,11 @@ namespace VSIXInteropFormsToolkit
                         continue;
                     }
                 }
-                //ProjectData.ClearProjectError();
             }
+
             if (delegate1 == null)
             {
-                this.DisplayWarning(string.Format(Resource.EventErrMsg,
-                    evt.Name, evt.Type.AsFullName));
+                this.DisplayWarning(string.Format(Resource.EventErrMsg, evt.Name, evt.Type.AsFullName));
             }
             else
             {
@@ -506,8 +468,7 @@ namespace VSIXInteropFormsToolkit
                     {
                         if (!this.IsSupported(parameter1.Type))
                         {
-                            this.DisplayWarning(String.Format(Resource.EventErrMsg2,
-                                parameter1.Type.AsFullName, evt.Name));
+                            this.DisplayWarning(String.Format(Resource.EventErrMsg2, parameter1.Type.AsFullName, evt.Name));
                             return;
                         }
                         expression4 = new CodeParameterDeclarationExpression(parameter1.Type.AsFullName, parameter1.Name);
@@ -550,10 +511,7 @@ namespace VSIXInteropFormsToolkit
                 "\t\t\tDim castFormInstance As {0} = FormInstance" :
                 "\t\t\t{0} castFormInstance = ({0})FormInstance;";
 
-            CodeSnippetStatement statement = new CodeSnippetStatement(
-                String.Format(CultureInfo.InvariantCulture,
-                statementFormat, interopFormClass.FullName));
-            return statement;
+            return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, statementFormat, interopFormClass.FullName));
         }
 
         private void AddProperty(CodeTypeDeclaration proxyClass,
@@ -565,8 +523,7 @@ namespace VSIXInteropFormsToolkit
             property1.Type = new CodeTypeReference(prop.Type.AsFullName);
             if (!this.IsSupported(prop.Type))
             {
-                this.DisplayWarning(String.Format(Resource.PropertyErrMsg,
-                    prop.Type.AsFullName, property1.Name));
+                this.DisplayWarning(String.Format(Resource.PropertyErrMsg, prop.Type.AsFullName, property1.Name));
                 return;
             }
             if (prop.Getter != null)
@@ -593,8 +550,7 @@ namespace VSIXInteropFormsToolkit
             method1.CustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.DebuggerStepThrough"));
             method1.Statements.Add(this.GetStatementCastFormInstance(interopFormClass));
             bool lShouldReturn;
-            CodeSnippetStatement methodStatement =
-                GetStatementMethod(method, method1, out lShouldReturn);
+            CodeSnippetStatement methodStatement = GetStatementMethod(method, method1, out lShouldReturn);
             if (lShouldReturn)
                 return;
             method1.Statements.Add(methodStatement);
@@ -612,8 +568,7 @@ namespace VSIXInteropFormsToolkit
             {
                 if (!this.IsSupported(method.Type))
                 {
-                    this.DisplayWarning(String.Format(Resource.MethodErrMsg1,
-                        method.Type.AsFullName, method.Name));
+                    this.DisplayWarning(String.Format(Resource.MethodErrMsg1, method.Type.AsFullName, method.Name));
                     shouldReturn = true;
                     return null;
                 }
@@ -630,8 +585,7 @@ namespace VSIXInteropFormsToolkit
             {
                 if (!this.IsSupported(parameter1.Type))
                 {
-                    this.DisplayWarning(String.Format(Resource.MethodErrMsg2,
-                        parameter1.Type.AsFullName, method.Name));
+                    this.DisplayWarning(String.Format(Resource.MethodErrMsg2, parameter1.Type.AsFullName, method.Name));
                     shouldReturn = true;
                     return null;
                 }
@@ -652,9 +606,13 @@ namespace VSIXInteropFormsToolkit
         private CodeDomProvider GetProvider()
         {
             if (IsVB)
+            {
                 return new Microsoft.VisualBasic.VBCodeProvider();
-
-            return new CSharpCodeProvider();
+            }
+            else
+            {
+                return new CSharpCodeProvider();
+            }
         }
 
         private bool IsSupported(CodeTypeRef typeToCheck)
@@ -670,8 +628,7 @@ namespace VSIXInteropFormsToolkit
 
         private void DisplayWarning(string errorMessage)
         {
-            MessageBox.Show(errorMessage, Resource.DISPLAY_CAPTION,
-                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(errorMessage, Resource.DISPLAY_CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void LoadSupportedTypes()
@@ -737,7 +694,6 @@ namespace VSIXInteropFormsToolkit
         }
 
         private DTE2 _applicationObject;
-        private AddIn _addInInstance;
         private System.Type _attrTypeEvent;
         private System.Type _attrTypeForm;
         private System.Type _attrTypeInitializer;
