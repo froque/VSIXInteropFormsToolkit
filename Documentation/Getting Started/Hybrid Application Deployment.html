@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>Hybrid Application Deployment</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">Hybrid Application Deployment </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+        <p>
+            <strong>Overview</strong></p>
+        <p>
+            Deploying a Hybrid Application requires modifying your current deployment process
+            to ensure that your .NET assemblies are installed and registered properly.&nbsp;
+            This topic discusses the decisions and tools involved in the process.&nbsp; For&nbsp;more
+            detailed&nbsp;instructions see <a href="../How To/How To Deploy A Hybrid Application.html">
+                How To Deploy Hybrid Applications</a>.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Registering the .NET Assemblies</strong></p>
+        <p>
+            The .NET assemblies&nbsp;you create as&nbsp;part of a Hybrid Application will be
+            called by Visual Basic 6.0 COM&nbsp;objects.&nbsp; Therefore they must be registered
+            as COM objects.&nbsp; .NET assemblies are not COM objects, of course, so the typical
+            means of registering a COM .dll using regsvr32.exe will not work.&nbsp; However,
+            Microsoft provides the Assembly Registration Tool "Regasm.exe" to solve this problem.&nbsp;
+            The&nbsp;tool adds the registry entries needed to make the .NET assembly look like
+            a COM object to other COM objects.&nbsp; In addition, it adds information needed
+            to correctly load the assembly into memory.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Private vs. Shared</strong></p>
+        <p>
+            The only decision you need to make is how you want the assemblies to be deployed.&nbsp;Unlike
+            Visual Basic 6.0 COM applications, .NET does not use the registry to find .dll's.&nbsp;
+            Assemblies can be either private or shared:&nbsp; an assembly is termed private
+            if it is deployed to the folder where&nbsp;an application is running. A shared assembly
+            is installed in the&nbsp;Global Assembly Cache (GAC).&nbsp; Since .NET assemblies
+            used in Hybrid Applications will be loaded in the same manner as any other .NET
+            assembly, you can choose where to deploy them.&nbsp;</p>
+        <p>
+            Both InteropForm and Interop UserControl assemblies will contain UI elements that
+            most likely apply to one application and therefore they should most likely be deployed
+            to the application folder as private assemblies.&nbsp; Assemblies that will be used
+            in multiple applications can be treated as shared assemblies&nbsp;or&nbsp;private
+            assemblies.&nbsp; In general, deployment as private assemblies is often an easier
+            approach.</p>
+        <p>
+            Both Regasm.exe and Gacutil.exe can be used as part of your installation process.&nbsp;
+            If you choose to create a new installer for your application using Visual Studio,
+            you can specify options for automatic registration and/or GAC installation.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Other Dependencies</strong></p>
+        <p>
+            The .NET 2.0 Framework is responsible for loading your .NET assemblies and therefore
+            must be installed on the end user's computer in order to run your Hybrid Application.
+            In addition, the Interop Forms Toolkit Redistributable Package 2.0 should be included
+            in your setup — this package&nbsp;detects&nbsp;any dependencies on the Interop Forms
+            Toolkit and installs the necessary components.&nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Versioning</strong></p>
+        <p>
+            Since deployment involves COM registration, you must be careful when unregistering
+            with&nbsp;Regasm&nbsp;because it can remove all registrations of an assembly and
+            therefore break other installed applications using versions of an assembly.&nbsp;</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

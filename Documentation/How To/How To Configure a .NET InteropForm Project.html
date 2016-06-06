@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Configure a .NET InteropForm Project</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Configure a .NET InteropForm Project </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong>Create a&nbsp;.NET InteropForm Library Project</strong></p>
+<p>A project must be created to&nbsp;contain your new .NET functionality. The
+easiest way to configure an InteropForm project is to create the new Visual
+Basic .NET project by selecting <strong>File | New Project</strong>.&nbsp;
+Select "Visual Basic 6.0 InteropForm Library" under &nbsp;<strong>Visual
+Basic&nbsp;| My Templates</strong>. Rename the project as desired, e.g.
+“HelloWorld".</p>
+<p><img alt="" src="../images/FileNewProject.JPG" border="0"></p>
+<p>The solution will now contain your custom project and an&nbsp;InteropForm
+project. The custom project will be setup for interoperability and&nbsp;contain
+InteropForm1, which is decorated with the InteropForm attribute.</p>
+<div class="syntax">
+    Imports Microsoft.InteropFormTools 
+    <p>&lt;InteropForm()&gt; _<br>
+    Public Class HelloWorldForm</p>
+</div>
+<p>Throughout the documentation, a form decorated with this attribute will be
+referred to as an InteropForm.</p>
+<p>Once the form is added to the project, rename it and build out functionality
+as needed. To add additional Forms that need to be created from Visual Basic
+6.0, right click on the custom project and select Add New Item and
+select&nbsp;InteropForm which can be found under My Templates.</p>
+<p>&nbsp;</p>
+<p><strong>Configuring an Existing Project</strong></p>
+<p>An existing project can be configured to be a Visual Basic 6.0 InteropForm
+Library by following these steps:</p>
+<ol>
+    <li>In the <strong>Project Properties</strong> window, change
+    <strong>Application Type</strong> to Class Library</li>
+    <li>In the <strong>Project Properties</strong> window, check
+    <strong>Register for COM Interop</strong></li>
+    <li>Select <strong>Project | Add New Item...</strong> and add&nbsp;a
+    <strong>Visual Basic 6.0 InteropForm Library Info</strong> file</li>
+    <li>Select <strong>Project | Show All Files</strong> and open the file My
+    Project\AssemblyInfo.vb and delete the following line:</li>
+</ol>
+<div class="syntax">
+    &lt;Assembly: System.Runtime.InteropServices.ComVisible(True)&gt;
+</div>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

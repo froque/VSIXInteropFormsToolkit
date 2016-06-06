@@ -1,0 +1,82 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Create a Form Method</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Create a Form Method </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong><a name="CustomMethod"></a>Create a Form Method (Sub or
+Function)</strong></p>
+<p>Methods&nbsp;defined in an InteropForm can be exposed to Visual Basic
+6.0.&nbsp; To do so, decorate the custom method with the InteropFormMethod
+attribute.&nbsp; Methods may be subroutines (Sub) or functions (Function) that
+return values.</p>
+<p>&nbsp;</p>
+<div class="syntax">
+    &nbsp;&nbsp;&nbsp; &lt;InteropFormMethod()&gt; _<br>
+    &nbsp;&nbsp;&nbsp; Public Sub ReverseBackgroundColors() 
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim lblOldBackColor As
+    Color = Me.lblHelloText.BackColor<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lblHelloText.BackColor =
+    Me.BackColor<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Me.BackColor =
+    lblOldBackColor</p>
+    <p>&nbsp;&nbsp;&nbsp; End Sub</p>
+</div>
+<p>To quickly define a method use the InteropSub or InteropFunc&nbsp;snippets
+installed with the toolkit:&nbsp; Simply type interopsub+Tab or interopfunc+Tab
+and complete the method signature.</p>
+<p>Only certain Types may be used as return values or parameters.&nbsp; See
+<a href=
+"../Getting Started/Creating%20and%20Working%20with%20InteropForms.html#TypeRestrictions">Type
+Restrictions</a> for details.</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

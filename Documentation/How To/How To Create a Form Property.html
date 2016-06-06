@@ -1,0 +1,81 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Create a Form Property</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Create a Form Property </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong><a name="CustomProperty"></a>Create a Form Property</strong><br>
+Properties defined in an InteropForm can be exposed to Visual Basic 6.0.&nbsp;
+To do so, decorate the custom property with the InteropFormProperty
+attribute.<br>
+&nbsp;&nbsp;&nbsp;</p>
+<div class="syntax">
+    &nbsp;&nbsp;&nbsp; &lt;InteropFormProperty()&gt; _<br>
+    &nbsp;&nbsp;&nbsp; Public Property HelloText() As String<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Get<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Return
+    lblHelloText.Text<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End Get<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set(ByVal value As String)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    lblHelloText.Text = value<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End Set<br>
+    &nbsp;&nbsp;&nbsp; End Property&nbsp;
+</div>
+<p>To quickly define a property use the InteropProperty snippet installed with
+the toolkit:&nbsp; Simply type interopprop+Tab and complete the property
+signature.</p>
+<p>Only certain Types may be exposed as properties.&nbsp; See <a href=
+"../Getting Started/Creating and Working with InteropForms.html#TypeRestrictions">Type
+Restrictions</a> for details.</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

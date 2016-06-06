@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Create an Initialize Method</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Create an Initialize Method </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong><a name="Constructor"></a>Create an Intitialize Method</strong><br>
+Parameterized constructors are not supported in Visual Basic 6.0. To work
+around this limitation, a&nbsp;common Visual Basic 6.0 design pattern&nbsp;was
+to create a method called Initialize which would be called directly after
+creating an object.&nbsp;.NET brings&nbsp;with it support for constructors that
+take parameters.&nbsp; In keeping with the aforementioned design pattern, a
+developer may create a parameterized constructor on his .NET form and expose it
+to Visual Basic 6.0 as an Initialize method.&nbsp; To do this, use the
+InteropFormInitializer attribute.</p>
+<p>Note that the Form must always expose a default constructor, one that takes
+no parameters, in addition to any that are parameterized.</p>
+<p>The code below demonstrates decorating a constructor with the
+InteropFormInitializer attribute.</p>
+<div class="syntax">
+    &nbsp;&nbsp;&nbsp; &lt;InteropFormInitializer()&gt; _<br>
+    &nbsp;&nbsp;&nbsp; Public Sub New(ByVal helloText As String)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Me.New() 
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lblHelloText.Text =
+    helloText</p>
+    <p>&nbsp;&nbsp;&nbsp; End Sub</p>
+</div>
+<p>To quickly define an Initialize method use the InteropInitialize snippet
+installed with the toolkit:&nbsp; Simply type interopinit+Tab and complete the
+method signature.</p>
+<p>Only certain Types may be used as&nbsp;parameters.&nbsp; See <a href=
+"../Getting Started/Creating%20and%20Working%20with%20InteropForms.html#TypeRestrictions">Type
+Restrictions</a> for details.</p>
+<p>&nbsp;</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

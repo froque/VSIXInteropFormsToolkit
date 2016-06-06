@@ -1,0 +1,86 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Share Application State in a Hybrid Application</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Share Application State in a Hybrid Application </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong>Overview</strong></p>
+<p>Application state is often passed from one component to another within an
+application.&nbsp; Visual Basic 6.0 applications often use global variables to
+do this.&nbsp; .NET does not support global variables; however, since there may
+on occasion be good reason to pass state as a&nbsp;global variable, the Interop
+Forms Toolkit supports it.&nbsp; Global values can be added and removed to the
+InteropToolbox.Globals collection.</p>
+<p>&nbsp;</p>
+<p>Below is an example of setting a value in the Globals collection from Visual
+Basic 6.0 code:</p>
+<div class="syntax">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' Add the token to the Interop
+    Globals collection so that<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' .NET components can use
+    it.<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g_InteropToolbox.Globals.Add
+    AUTHENTICATION_TOKEN, authToken
+</div>
+<p>&nbsp;</p>
+<p>Below is an example of retrieving a value from the Globals collection within
+a .NET InteropForm. .NET code allows for accessing the InteropToolbox from the
+My namespace:</p>
+<div class="syntax">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dim authToken As String =
+    My.InteropToolbox.Globals(AUTHENTICATION_TOKEN)
+</div>
+<p>Note: For proper memory management, items that were added to Globals that
+are no longer needed should be explicitly removed using the Remove
+method.</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

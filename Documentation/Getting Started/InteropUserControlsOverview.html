@@ -1,0 +1,145 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>InteropUserControlsOverview</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">InteropUserControlsOverview </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+        <p>
+            Interop UserControls are Windows Forms controls created in Visual Basic .NET that
+            can be used on Visual Basic 6.0 forms. They allow you to add .NET functionality
+            to a Visual Basic 6.0 application without the need for an Interop form. In Multiple
+            Document Interface (MDI) applications Interop UserControls can be placed directly
+            on a Visual Basic 6.0 MDI child form, solving the limitation of not being able to
+            use Interop forms as an MDI child.</p>
+        <p>
+            Interop UserControls are created in Visual Basic .NET by using a VB6 Interop UserControl
+            project template, essentially a Windows Control project&nbsp;that includes&nbsp;code
+            to marshal common properties, define some common Visual Basic 6.0 methods, and automatically
+            register the control for COM interop. When the control is built in Visual Studio .NET it is registered; you can then add it to the Visual Basic 6.0 toolbox and use
+            it like any Visual Basic 6.0 control.</p>
+        <p>
+            The Interop UserControl provides full Intellisense support when used in Visual Basic
+            6.0. As with Interop Forms, if you reference the Interop Forms Toolkit you can also
+            raise application-level events and access globals via the <strong>InteropToolbox</strong>
+            and <strong>InteropGlobals</strong> classes.</p>
+        <p>
+            <strong>Ensuring Binary Compatibility</strong></p>
+        <p>
+            In order to avoid breaking changes and ensure binary compatibility between different
+            versions, the following practices are recommended:</p>
+        <blockquote dir="ltr" style="margin-right: 0px">
+            <p>
+                a) Ensure that all new public methods/properties/events are added at the bottom
+                of the class.</p>
+            <p>
+                b) Avoid changing the names of assemblies or the class names of Interop UserControls/InteropForms.</p>
+            <p>
+                c) When specifying a new member with the same name as a member in the base class,
+                you must use either the <strong>Shadows</strong> or <strong>Overrides</strong> keyword.</p>
+            <p>
+                d) You must make sure that any data types can be marshalled correctly.</p>
+        </blockquote>
+        <p>
+            Custom events can also be added and raised using the <strong>RaiseEvent</strong>
+            keyword. In order to handle the events in Visual Basic 6.0, you must add a second
+            reference and declare a <strong>WithEvents</strong> object. For more information,
+            see <a href="../How To/Interop%20User%20Control%20Events.html">How To: Handle Interop UserControl
+                Events</a>.</p>
+        <p>
+            You can also create a control library containing multiple Interop UserControls,
+            creating additional controls&nbsp;in your Visual Basic Interop UserControl
+            project by using the VB6 Interop UserControl item template.</p>
+        <p>
+            <strong>Interop UserControl limitations</strong></p>
+        <p>
+            Interop UserControls are .NET controls, and as such there are a few limitations
+            when using them in Visual Basic 6.0.</p>
+        <ul>
+            <li>You should not&nbsp;show a .NET form from an Interop UserControl.&nbsp;The .NET&nbsp;form
+                will not close if the parent form is closed first, and tabbing on the .NET form
+                will not work.</li>
+            <li>Code in the <strong>GotFocus</strong> and <strong>LostFocus</strong> events of the
+                Interop UserControl&nbsp;defined in Visual Studio &nbsp;will never be executed;
+                the intrinsic <strong>GotFocus</strong> and <strong>LostFocus</strong> events on
+                an instance of the control in Visual Basic 6.0 will still work. If you need to handle
+                the events in .NET, use the <strong>Enter</strong> and <strong>Leave</strong>
+                events instead.</li>
+            <li>Control arrays of Interop UserControls are not supported.</li>
+            <li>If a <strong>MenuStrip</strong> control is used on an Interop UserControl, menu
+                merging with <strong>WindowList</strong> enabled MDI forms is not supported.</li>
+            <li>There are known issues when using an <strong>ElementHost</strong> control for Windows
+                Presentation Foundation (WPF) on an Interop UserControl; it can only be hosted on
+                a Windows Form. While the scenario is technically unsupported, it is possible to
+                get this to work.</li>
+            <li>Interop UserControls can only be hosted on Visual Basic 6.0 forms, they cannot be
+                placed on ActiveX controls or in any other type of host (for example Microsoft Office).</li>
+        </ul>
+        <p>
+            <strong>For More Information</strong></p>
+        <p>
+            The following topics provide more information about creating and using Interop UserControls.</p>
+        <p>
+            <a href="../How To/How%20To%20Create%20an%20Interop%20User%20Control.html">How To: Create an Interop
+                UserControl</a></p>
+        <p>
+            <a href="../How To/Interop%20User%20Control%20Events.html">How To: Handle Interop UserControl
+                Events</a></p>
+        <p>
+            <a href="../How To/How%20To%20Debug%20a%20Hybrid%20Application.html">How To: Debug a Hybrid Application</a></p>
+        <p>
+            <a href="../How To/How%20To%20Deploy%20A%20Hybrid%20Application.html">How To: Deploy A Hybrid
+                Application</a></p>
+        <p>
+            <a href="Walkthrough%20Creating%20and%20Consuming%20an%20Interop%20User%20Control.html">
+                Walkthrough: Creating and Consuming an Interop UserControl</a></p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

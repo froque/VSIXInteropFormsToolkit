@@ -1,0 +1,289 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Deploy A Hybrid Application</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Deploy A Hybrid Application </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p>Visual Basic 6.0 applications that contain InteropForms or Interop
+UserControls&nbsp;can be deployed using a Visual Studio .NET Setup and
+Deployment project, automatically registering the interop assemblies
+and&nbsp;installing any prerequisites. Alternatively, you can modify an
+existing Setup script to deploy and register&nbsp;the assemblies, or you can
+bootstrap an existing setup.exe by creating a custom bootstrapper package.</p>
+<p><strong>To deploy with a Setup and Deployment project in Visual Studio
+.NET</strong></p>
+<ol>
+    <li>On the <strong>File</strong> menu, click <strong>New
+    Project</strong>.</li>
+    <li>In the <strong>New Project</strong> dialog box,&nbsp;click
+    <strong>Other Project Types</strong>, <strong>Setup and
+    Deployment</strong>, <strong>Setup Project</strong>.</li>
+    <li>Enter a name for the Setup project and click <strong>OK</strong>.</li>
+    <li>In the <strong>File System Editor</strong>, select the
+    <strong>Application Folder</strong>.</li>
+    <li>On the <strong>Action</strong> menu, click <strong>Add</strong>,
+    <strong>File</strong>.</li>
+    <li>In the <strong>Add File</strong> dialog box, browse to the location of
+    your Visual Basic 6.0 .exe and select it, and then click
+    <strong>Open</strong>. Note that only the .exe is added - if your
+    application has dependencies, you must repeat the process for each
+    dependency.</li>
+    <li>On the <strong>Action</strong> menu, click <strong>Add</strong>,
+    <strong>File</strong>.</li>
+    <li>In the&nbsp;<strong>Add File</strong>&nbsp;dialog box, browse to the
+    location of your Interop UserControl or InteropForm and select it, and then
+    click <strong>Open</strong>. Note that when it is added, any dependencies
+    are also added.</li>
+    <li>For each .dll in <strong>Solution Explorer</strong>, select the file
+    and in the <strong>Properties</strong> window, select the
+    <strong>Register</strong> property and set it to
+    <strong>vsdraCOM</strong>.</li>
+    <li>Right-click the files Microsoft.InteropFormTools.dll and
+    Microsoft.InteropFormTools.tlb and click <strong>Exclude</strong>. (These
+    will be installed using the redistributable package in step 13).</li>
+    <li>On the&nbsp;<strong>Project</strong> menu, click
+    <strong>Properties</strong>.</li>
+    <li>In the <strong>Property Pages</strong>,&nbsp;click
+    <strong>Prerequisites</strong>.</li>
+    <li>In the <strong>Prerequisites</strong>&nbsp;dialog box,&nbsp;check
+    the&nbsp;<strong>Microsoft InteropForms Toolkit 2.0</strong>&nbsp;checkbox,
+    and then click <strong>OK</strong>.</li>
+    <li>In the <strong>Property Pages</strong>,&nbsp;click
+    <strong>OK</strong>.</li>
+    <li>On the <strong>Build</strong> menu, choose <strong>Build</strong> to
+    build a Setup.exe and a .msi file for your application.</li>
+</ol>
+<p>&nbsp;</p>
+<p><strong><span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">To
+integrate with an existing setup script</span></strong></p>
+<p><span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">
+<?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /?>
+If you want to modify&nbsp;an existing setup script to deploy your Hybrid
+Application, you will need to add a step to properly install the new .NET
+assemblies. The sections below show how to deploy .NET assemblies (both
+InteropForms assemblies and Interop UserControl assemblies) for use in a Hybrid
+Application.</span></p>
+<p>&nbsp;</p>
+<p><span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'"><strong>Option
+1: Registering as Private Assemblies</strong></span></p>
+<ol>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Deploy
+    your .NET assemblies to the application folder.</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Deploy
+    regasm.exe for use by your installer.</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Run
+    regasm.exe to register the Interop assembly (for example: regasm
+    c:\appPath\myForms.dll or regasm c:\appPath\myControls.dll).</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Deploy
+    any additional assemblies that are required dependencies of the InteropForm
+    assemblies.</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Have
+    your setup script launch the redistributable package named Microsoft
+    Interop Forms Toolkit&nbsp;2.0 MSI. This file can be found in C:\program
+    files\Microsoft Visual Studio 8\SDK\v2.0\BootStrapper\Packages\Microsoft
+    InteropForms Toolkit.</span></li>
+</ol>
+<p>&nbsp;</p>
+<p><span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'"><strong>Option
+2: Registering as Shared Assemblies</strong></span></p>
+<ol>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Deploy
+    the assemblies to a shared folder.</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Deploy
+    gacutil.exe for use by your installer.</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Run
+    gacutil.exe to install your Interop assembly in the Global Assembly Cache
+    (for example: gacutil /if c:\sharedPath\myForms.dll or gacutil /if
+    c:\sharedPath\myControls.dll).</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'"><span style="  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">
+    Deploy regasm.exe for use by your installer.</span></span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Run
+    regasm.exe to register the Interop assembly (for example: regasm
+    c:\appPath\myForms.dll or regasm c:\appPath\myControls.dll).</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Deploy
+    any additional assemblies that are required dependencies of the InteropForm
+    assemblies.</span></li>
+    <li><span style=
+    "  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Have
+    your setup script launch the redistributable package named Microsoft
+    Interop Forms Toolkit 2.0 MSI. This file can be found in C:\program
+    files\Microsoft Visual Studio 8\SDK\v2.0\BootStrapper\Packages\Microsoft
+    InteropForms Toolkit.</span></li>
+</ol>
+<p>&nbsp;</p>
+<p><span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'"><span style="  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">
+<strong>Creating a custom bootstrapper to install
+Prerequisites</strong></span></span></p>
+<p><span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Applications
+using Interop Forms or InteropUserControls require both the .Net Framework 2.0
+and the InteropForms runtime to be installed on the client
+machines.&nbsp;&nbsp; If you use a Visual Studio .NET Setup and Deployment
+project to build your setup, you can use the prerequisites dialog to build a
+setup.exe that will install these components.&nbsp;&nbsp;If you are using a
+different setup method (for example,&nbsp;the Visual Basic 6.0 Package and
+Deployment wizard), you can use msbuild to build a bootstrapper setup program
+that will install these prerequisites for you.&nbsp;&nbsp;</span></p>
+<p>&nbsp;</p>
+<p><strong>To create a custom bootstrapper</strong></p>
+<ul>
+    <li>Create an XML file that specifies your prerequisites,&nbsp;the path to
+    your&nbsp;existing setup program, and an output path:</li>
+</ul>
+<blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
+    <p class="MsoNormal">&lt;Project xmlns="<a href=
+    "http://schemas.microsoft.com/developer/msbuild/2003">http://schemas.microsoft.com/developer/msbuild/2003</a>"&gt;</p>
+    <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp; &lt;!-- Include the 'Product
+    code' for every package you want --&gt;</p>
+    <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;ItemGroup&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;BootstrapperFile Include="Microsoft.Net.Framework.2.0"&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;ProductName&gt;.NET Framework 2.0&lt;/ProductName&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;/BootstrapperFile&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&lt;BootstrapperFile Include="Microsoft.InteropForms.Toolkit"&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;ProductName&gt;Microsoft Interop Forms Toolkit
+    2.0&lt;/ProductName&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;/BootstrapperFile&gt;</p>
+    <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;/ItemGroup&gt;</p>
+    <p class="MsoNormal">&nbsp;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Specify the setup
+    you wish to bootstrap here --&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Target
+    Name="Bootstrapper"&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &lt;GenerateBootstrapper</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    ApplicationFile="<em>MyLegacySetup.exe</em>"</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    ApplicationName="<em>My Setup</em>"</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    BootstrapperItems="@(BootstrapperFile)"</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Culture="en" FallbackCulture="en-US"</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    CopyComponents="True" Validate="True"</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    OutputPath="<em>d:\outputpath\</em>" /&gt;</p>
+    <p class="MsoNormal">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Target&gt;</p>
+    <p class="MsoNormal">&lt;/Project&gt;</p>
+</blockquote>
+<ul>
+    <li class="MsoNormal">
+        <p class="MsoNormal">Save this to a file called
+        “mybootstrapper.msbuild”. Typically, the only things you need to change
+        are the “<em>applicationfile</em>”, “<em>applicationname</em>”, and
+        “<em>outputpath</em>” elements.</p>
+    </li>
+    <li class="MsoNormal">
+        <p class="MsoNormal">Open a Visual Studio .NET Command Prompt shell and
+        type the following: Msbuild “mybootstrapper.msbuild”&nbsp;A setup.exe
+        will be created in the <em>outputpath</em> directory;&nbsp;it is a
+        compiled binary that contains the appropriate checks for the
+        prerequisites. If the prerequisites are not already installed, they
+        will be automatically downloaded from Microsoft.com and installed. At
+        the completion of this,&nbsp;your legacy setup will be
+        launched.&nbsp;&nbsp;&nbsp;</p>
+    </li>
+</ul>
+<blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
+    <p class="MsoNormal">&nbsp;&nbsp; <strong>Note</strong>:&nbsp; You may need
+    to copy your legacy setup.exe and any related files to the
+    <em>outputpath</em> as well.</p>
+</blockquote>
+<p class="MsoNormal">There are a lot of customizations that can be done with
+the bootstrapper technology.&nbsp;&nbsp; For more information, see:</p>
+<p class="MsoNormal"><a href=
+"http://msdn2.microsoft.com/en-us/library/ms164294.aspx">http://msdn2.microsoft.com/en-us/library/ms164294.aspx</a></p>
+<p class="MsoNormal"><a href=
+"http://blogs.msdn.com/chrsmith/archive/2005/06/29/MSBuilding-a-Bootstrapper-via-the-command-line.aspx">
+http://blogs.msdn.com/chrsmith/archive/2005/06/29/MSBuilding-a-Bootstrapper-via-the-command-line.aspx</a></p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <meta name="GENERATOR" content="Innovasys HelpStudio Lite (http://www.innovasys.com)">
+    <title>Introduction to the Interop Forms Toolkit</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Introduction to the Interop Forms Toolkit"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body id="hsbody" topmargin="0">
+    <input type="hidden" id="userDataCache" class="userDataStyle" name="userDataCache">
+    </input>
+    <input type="hidden" id="hiddenScrollOffset" name="hiddenScrollOffset"> </input>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">Introduction to the Interop Forms Toolkit </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="pagebody" valign="bottom">
+        <div id="mainbody">
+            <p>
+                <strong>Overview</strong></p>
+            <p>
+                The Microsoft Interop Forms Toolkit is aimed at simplifying&nbsp;the use of Visual
+                Basic.NET Windows Forms&nbsp;within a&nbsp;Visual Basic 6.0 forms&nbsp;application.&nbsp;&nbsp;The
+                toolkit is targeted specifically at providing tools and guidance for performing
+                a phased migration of a Visual Basic 6.0 forms-based application to Visual Basic
+                .NET.&nbsp; The goal of a phased migration is&nbsp;a production release at the end
+                of each phase that has both Visual Basic 6.0 and .NET forms running in the same
+                Visual Basic 6.0 .exe process.&nbsp;</p>
+            <p>
+                <img alt="" src="../images/architectureSimple.bmp" border="0"></p>
+                            <p>
+                <strong>What’s New in ver 2.1</strong>
+                <li>Latest Visual Studio Support - the tools and Add-in have been upgraded to support several versions of Visual Studio: Visual Studio 2005, Visual Studio 2008, and Visual Studio 2010 along with fixes for a few reported bugs.&nbsp;
+                    <li>No Runtime Redistributable Changes – to ensure compatibility with existing deployments the runtime redistributable has not been changed.  However, developers may still make use of new language and .NET Framework features. 
+
+            <p>
+                <strong>What’s New in ver 2.0</strong>
+                <li>Controls - The Interop Forms Toolkit now includes a template for Interop UserControls,
+                    which allow you to create controls in .NET that can be used on a Visual Basic 6.0
+                    form. For more information, see <a href="InteropUserControlsOverview.html">Interop UserControls</a>.&nbsp;
+                    <li>MDI Support – Previously the Interop Forms Toolkit did not support MDI forms, however
+                        you can now extend your Visual Basic 6.0 &nbsp;MDI forms by using Interop UserControls.
+                        <li>Redistributable Component – The Interop Forms Toolkit Redistributable Package 2.0
+                            makes it easier to create setup packages for your hybrid applications.
+                            <li>RegFree COM support – Interop UserControls automatically generate a RegFree COM
+                                manifest which allows for easier deployment of the .NET assemblies. </li>
+                            </UL>
+                            <p>
+                                The tools and components that make up the Interop Forms Toolkit simplify the pThe
+                                tools and components that make up the Interop Forms Toolkit simplify the process
+                                of building forms with Visual Basic .NET that can be easily consumed from Visual
+                                Basic 6.0 by automating the creation of the required COM interop components.&nbsp;
+                                The Toolkit makes it easy to expose&nbsp;methods, properties, and events to Visual
+                                Basic 6.0&nbsp;from&nbsp;a .NET form. In addition, functionality is provided to
+                                share application state and signal application-level events.</p>
+                            <p>
+                                <img alt="" src="../images/FormInteropSimpleDiagram.bmp" border="0"></p>
+                            <p>
+                                The&nbsp;Toolkit guides you down a migration path that allows you to focus on writing
+                                code that&nbsp;adds business value instead of infrastructure and interop code.Basic.NET
+                                code library that provides functionality you add to your .NET Forms to make them
+                                easy to expose to Visual Basic 6.0.&nbsp;This assembly, Microsoft.InteropFormTools,&nbsp;defines
+                                several attributes you use with your custom .NET Forms.&nbsp; These attributes work
+                                in conjunction with a new&nbsp;Visual Studio AddIn that is also&nbsp;installed with
+                                the Toolkit.&nbsp;InteropForms and Interop UserControls each have a project template
+                                and an item template that you can access under the New Project dialog in Visual
+                                Studio.</p>
+                            <p>
+                                In addition to these tools, new items have been added to the Start Menu.&nbsp; They
+                                include a shortcut to the Help documentation and shortcuts to three sample applications
+                                that demonstrate creating Visual Basic.NET Forms&nbsp;for a Visual Basic 6.0 application
+                                by using this Toolkit.&nbsp; The <a href="../Sample Applications/Hello World Hybrid Application.html">
+                                    Hello World Hybrid Application</a> sample application shows how to use some
+                                of the basic features of the Interop Forms Toolkit.&nbsp; The <a href="../Sample Applications/Line of Business Hybrid Application.html">
+                                    Line Of Business Hybrid Application</a> provides a complete example of how you
+                                may structure an application that uses both Visual Basic .NET and Visual Basic 6.0.
+                                The <a href="../Sample Applications/WordProcessor.html">Word Processor UserControl Application</a> demonstrates
+                                how to use an Interop UserControl in a VisualBasic 6.0 application.</p>
+                            <p>
+                                &nbsp;</p>
+                            <p>
+                                <strong>Requirements</strong></p>
+                            <p>
+                                This Toolkit requires Visual Basic 6.0 and a full version of Visual Studio 2005
+                                or later (Note: Visual Studio AddIns are not supported in Visual&nbsp;Basic&nbsp;Express).</p>
+                            <a name="SeeAlsoBookmark"></a>
+        </div>
+        <div id="pagefooter">
+            <p>
+                &nbsp;</p>
+            <p>
+                &nbsp;</p>
+            <hr size="1">
+            <p>
+                Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

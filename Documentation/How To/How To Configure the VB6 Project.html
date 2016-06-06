@@ -1,0 +1,108 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Configure the VB6 Project</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Configure the VB6 Project </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong><a name="SetuptheVB6Project"></a>Configure&nbsp;the Visual Basic 6.0
+Project</strong></p>
+<p>Open the&nbsp;Visual Basic 6 project that needs to interact with the new
+.NET InteropForms or Interop UserControls.</p>
+<p>A reference to the InteropFormTools library needs to be added to the Visual
+Basic 6.0 project.&nbsp; Likewise, a reference to the custom assembly that
+contains the .NET Form to launch from Visual Basic 6.0 is also needed. To do
+this, click <strong>Project | References</strong>.&nbsp; Then find and check
+"Microsoft Interop Forms Toolkit Library" along with any&nbsp;custom
+assemblies.&nbsp;</p>
+<p><img alt="" src="../images/vb6references.JPG" border="0"></p>
+<p>The .NET Forms created as part of the Visual Basic 6.0 application do not
+know to close themselves when the Visual Basic 6.0 application shuts
+down.&nbsp; This is noticeable when debugging in the Visual Basic 6.0 IDE,
+because the "Visual Basic 6.0.exe" process is still running.&nbsp; To improve
+the debugging experience and to properly clean up .NET Forms created from
+within a Visual Basic 6.0 application, the InteropToolbox manages all of the
+.NET Forms.&nbsp; The Visual Basic 6.0 application simply needs to notify the
+InteropToolbox when the application is starting up and shutting down in order
+to cleanly dispose of the Forms. The following code shows the pattern that
+should be followed to properly implement the InteropToolbox functionality.</p>
+<p>Declare a global instance of the toolbox:</p>
+<div class="syntax">
+    ' Global Variables<br>
+    Public g_InteropToolbox As InteropToolbox&nbsp;
+</div>
+<p>Instantiate the toolbox, call Initialize on&nbsp;it&nbsp;for debugging
+support,&nbsp;and then signal the start of the application when the application
+starts (Sub Main or Main Form Load):</p>
+<div class="syntax">
+    ' Instantiate the Toolbox<br>
+    Set g_InteropToolbox = New InteropToolbox
+</div>
+<div class="syntax">
+    ' Call Initialize method only when first creating the toolbox<br>
+    ' This aids in the debugging experience<br>
+    g_InteropToolbox.Initialize
+</div>
+<div class="syntax">
+    ' Signal Application Startup<br>
+    g_InteropToolbox.EventMessenger.RaiseApplicationStartedupEvent
+</div>
+<p>Signal the shutdown of the application when the application ends (Sub Main
+or Main Form QueryUnload):</p>
+<div class="syntax">
+    ' Signal Application Shutdown<br>
+    g_InteropToolbox.EventMessenger.RaiseApplicationShutdownEvent
+</div>
+<p><br>
+<strong><a name="Workingwith"></a></strong></p>
+<p>&nbsp;</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

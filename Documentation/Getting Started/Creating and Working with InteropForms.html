@@ -1,0 +1,152 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>Creating and Working with InteropForms</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">Creating and Working with InteropForms </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+        <p>
+            <strong>Overview</strong><br>
+            This topic lists the tasks of involved in using the Interop Forms Toolkit to create
+            .NET&nbsp;forms and&nbsp;make it accessible&nbsp;for use in&nbsp;a Visual Basic
+            6.0 application.&nbsp; The tasks below walk through project setup and how to expose
+            different&nbsp;form&nbsp;members to Visual Basic 6.0.&nbsp; The tasks&nbsp;can be
+            read sequentially, for those new to the Toolkit, or jumped to individually for quick
+            reference.&nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Tasks</strong></p>
+        <p>
+            <a href="../How To/How To Configure a .NET InteropForm Project.html">Configure a .NET
+                InteropForm Project</a></p>
+        <p>
+            <a href="../How To/How%20To%20Create%20a%20Form%20Property.html">Create a Form Property</a></p>
+        <p>
+            <a href="../How To/How%20To%20Create%20a%20Form%20Method.html">Create a Form Method</a></p>
+        <p>
+            <a href="../How To/How To Create an Initialize Method.html">
+                Create an Initialize Method</a></p>
+        <p>
+            <a href="../How To/How%20To%20Create%20a%20Form%20Event.html">Create a Form Event</a></p>
+        <p>
+            <a href="../How To/How%20To%20Generate%20InteropForm%20Wrapper%20Classes.html">Generate InteropForm
+                Wrapper Classes</a></p>
+        <p>
+            <a href="../How To/How%20To%20Configure%20the%20VB6%20Project.html">Configure the Visual Basic
+                6.0 Project</a></p>
+        <p>
+            <a href="../How To/How%20To%20Instantiate%20an%20InteropForm.html">Instantiate an InteropForm</a></p>
+        <p>
+            <a href="../How To/How%20To%20Call%20an%20InteropForm%20Intialize%20Method.html">Call an InteropForm
+                Initialize Method</a><a href="../How To/How To Call an InteropForm Intialize Method.html"></a></p>
+        <p>
+            <a href="../How To/How%20To%20Handle%20an%20InteropForm%20Event.html">Handle an InteropForm Event</a></p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong><a name="TypeRestrictions"></a>Type Restrictions<br>
+            </strong>One goal of this Interop Forms Toolkit is to keep development simple and
+            straightforward, allowing developers to spend time developing features that add
+            value instead of debugging Interop related issues.&nbsp; In keeping with that goal,
+            only a subset of Types will be supported as parameters or return types for Interop
+            members.&nbsp; They are:</p>
+        <blockquote dir="ltr" style="margin-right: 0px">
+            <p>
+                •<strong>&nbsp;Integer (Int32)<br>
+                </strong>•<strong>&nbsp;String<br>
+                </strong>•<strong>&nbsp;Boolean<br>
+                </strong>•<strong>&nbsp;Object</strong></p>
+        </blockquote>
+        <p>
+            A warning dialog will appear during the code generation process notifying the developer
+            if a member will be skipped because it uses an unsupported type.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            Note: Object is supported to allow you to pass any custom object through and cast
+            as needed.&nbsp;An example of this could be to pass a Recordset from Visual Basic
+            6.0 to .NET.</p>
+        <p>
+            <strong><a name="Generate"></a></strong>
+        </p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>InteropForm Behavioral Nuances</strong></p>
+        <p>
+            Since Visual Basic 6.0 Forms and .NET Forms are very different there are a few nuances
+            to keep in mind while developing.</p>
+        <ul>
+            <li>Bringing a Visual Basic 6.0 Form to the front brings all Visual Basic 6.0 Forms
+                to the front.</li>
+            <li>A .NET form showing Visual Basic 6.0 form modally doesn't work. A Visual Basic 6.0
+                Form is only modal to other Visual Basic 6.0 Forms.</li>
+            <li>A Visual Basic 6.0 Form&nbsp;showing another Visual Basic 6.0 Form modally works;
+                however, the modal form only "flickers" to indicate modality when another Visual
+                Basic 6.0 form, not a .NET form,&nbsp;is&nbsp;clicked.</li>
+            <li>InteropForms cannot be used as MDI Child forms in Visual Basic 6.0. If you want
+                to extend an MDI Form, use an Interop User Control on a Visual Basic 6.0 MDI Child
+                form and size it to fit the entire client area of the form.</li>
+        </ul>
+        <p>
+            <strong><a name="SetuptheVB6Project"></a></strong>
+        </p>
+        <p>
+            &nbsp;</p>
+        <p>
+            For more information on the working with the .NET InteropForm see <a href="The%20Development%20Experience.html">
+                The Development Experience</a>.</p>
+        <p>
+            <br>
+            &nbsp;</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

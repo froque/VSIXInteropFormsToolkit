@@ -1,0 +1,108 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>The Development Experience</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">The Development Experience </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+        <p>
+            <strong>Overview</strong></p>
+        <p>
+            Creating a Hybrid Application involves developing in both the Visual Basic 6 and
+            Visual Studio .NET IDEs. First,&nbsp;InteropForms must be created in Visual Studio
+            .NET and registered for use in Visual Basic 6 via a COM interface.&nbsp; When that
+            is complete, working with InteropForms via the COM interface should feel just like
+            working with Visual Basic 6.0 forms.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Coding Against InteropForms in Visual Basic 6.0</strong></p>
+        <p>
+            Your custom InteropForm type and all of its properties and methods are exposed via
+            Intellisense:</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            Custom InteropForm type:</p>
+        <p>
+            <img alt="" src="../images/intellisense1.JPG" border="0"></p>
+        <p>
+            &nbsp;</p>
+        <p>
+            Parameterized constructors&nbsp;appear as&nbsp;Initialize methods:</p>
+        <p>
+            <img alt="" src="../images/intellisense2.JPG" border="0"></p>
+        <p>
+            &nbsp;</p>
+        <p>
+            Common Form methods and&nbsp;properties are visible along with any custom&nbsp;members:&nbsp;</p>
+        <p>
+            &nbsp;<img alt="" src="../images/intellisense3.JPG" border="0"></p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Building a Hybrid Application</strong></p>
+        <p>
+            Because the code&nbsp;that makes up&nbsp;a Hybrid Application is written in both
+            .NET and Visual Basic 6.0, you must take some extra steps to build and debug your
+            code.&nbsp; When building an application, .NET pieces must be built first and registered
+            for Visual Basic 6.0 to reference.&nbsp; The Visual Basic 6.0 project can then&nbsp;reference
+            the new .NET assembly.&nbsp; Because of this referencing, however, the Visual Basic
+            6.0 IDE cannot be open while building the .NET pieces.&nbsp; If a Visual Basic 6.0
+            project is open and referencing a .NET project that is being built, an error will
+            occur.&nbsp; If this happens, simply close the Visual Basic 6.0 IDE and rebuild
+            the .NET project.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,363 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>Walkthrough Creating and Consuming an Interop User Control</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css" />
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">Walkthrough Creating and Consuming an Interop User Control
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+        <p>
+            This&nbsp;topic demonstrates the steps involved in creating an Interop UserControl
+            in Visual Studio .NET and then using it in a Visual Basic 6.0 project.</p>
+        <p>
+            This&nbsp;topic requires the Interop Toolkit 2.1, Visual Basic 6.0 and a full version
+            of Visual Studio .NET (Note: Visual Studio Add Ins are not supported in Visual&nbsp;Basic&nbsp;Express
+            Edition).</p>
+        <p>
+            The first step is to create a project for the Interop UserControl in Visual Studio
+            .NET.</p>
+        <h3 class="subHeading">
+            <b>&nbsp;To create a project in Visual Studio .NET</b></h3>
+        <ol>
+            <li>On the <strong>File</strong> menu, click <strong>New Project</strong>.</li>
+        </ol>
+        <div class="subSection">
+            <ol>
+                <li>
+                    <p>
+                        In the <strong>New Project</strong> dialog box, on the <strong>Templates</strong>
+                        pane under <strong>My Templates</strong> click <strong>VB6 Interop UserControl</strong>.</p>
+                </li>
+                <li>
+                    <p>
+                        In the <b>Name</b> box, type <font color="black"><code>NamesControl</code> and then
+                            click <b>OK</b>.</font></p>
+                    <p>
+                        A new <strong>VB6 Interop UserControl</strong> template is added to the project,
+                        and the <b>UserControl Designer</b> opens.</p>
+                </li>
+                <li>
+                    <p>
+                        On the <b>File</b> menu, click <b>Save All</b>.</p>
+                </li>
+                <li>
+                    <p>
+                        In the <b>Save Project</b> dialog box, type <font color="black"><code>NamesControl</code>
+                            and then click <b>Save</b>.</font></p>
+                </li>
+            </ol>
+        </div>
+        <p>
+            The next step is to design the appearance of the Interop UserControl by adding controls.
+            For this example, you will add a <b>Label</b> control to display a full name, and
+            three <b>TextBox</b> controls for entering first, last, and middle names.</p>
+        <h3 class="subHeading">
+            To add controls to&nbsp;the Interop&nbsp;UserControl</h3>
+        <div class="subSection">
+            <ol>
+                <li>
+                    <p>
+                        From the <b>Toolbox</b>, drag a <b>Label</b> control onto the designer.</p>
+                </li>
+                <li>
+                    <p>
+                        In the <b>Properties</b> window, change the <b>Name</b> property to <font color="black">
+                            <code>FullName</code>.</font></p>
+                </li>
+                <li>
+                    <p>
+                        From the <b>Toolbox</b>, drag three <b>TextBox</b> controls onto the designer. You
+                        can arrange them however you like.</p>
+                </li>
+                <li>
+                    <p>
+                        In the <b>Properties</b> window, change their <b>Name</b> properties to <font color="black">
+                            <code>FirstName</code>, <code>MiddleName</code>, and <code>LastName</code>.</font></p>
+                </li>
+                <li>
+                    <p>
+                        On the <b>File</b> menu, choose <b>Save All</b> to save your work.</p>
+                </li>
+            </ol>
+        </div>
+        <p>
+            Like any other UserControl, the Interop UserControl has private properties and methods
+            that define its behavior, and public properties that are exposed when the control
+            is used in Visual Basic 6.0. The next step is to add a private method that will
+            update the <font color="black"><code>FullName</code> label with the contents of the
+                <code>FirstName</code>, <code>MiddleName</code>, and <code>LastName</code> boxes
+                as you type, using the <b>TextChanged</b> event handler.</font></p>
+        <h3 class="subHeading">
+            To add private code to&nbsp;the control</h3>
+        <div class="subSection">
+            <ol>
+                <li>In the <b>Solution Explorer</b>, select <b>InteropUserControl.vb</b>, and then on
+                    the <b>View</b> menu choose <b>Code</b>.</li>
+                <li>
+                    <p>
+                        In the <strong>Code Editor</strong>, add the following code for the <b>FirstName_TextChanged</b>
+                        event handler at the bottom of the class.</p>
+                    <div class="code">
+                        <blockquote>
+                            <pre>
+<font color="navy">Private Sub FirstName_TextChanged(ByVal sender As System.Object,
+    ByVal e As System.EventArgs) Handles FirstName.TextChanged, MiddleName.TextChanged,
+    LastName.TextChanged<br>
+    ' Display the contents of the three text boxes in the label.<br>
+    FullName.Text = FirstName.Text &amp; " " &amp; MiddleName.Text &amp; " " &amp; LastName.Text<br>
+End Sub</font>
+                </pre>
+                        </blockquote>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <ul class="noindent">
+        </ul>
+        <p>
+            <span codelanguage="other">Press F5 to run the program. The <b>UserControl TestContainer</b>
+                opens and displays your UserControl.</span></p>
+        <ul class="noindent">
+        </ul>
+        <p>
+            Enter your first, middle and last names in the three text boxes—as you type, your
+            name is displayed in the <font color="black"><code>FullName</code> label.</font></p>
+        <ul class="noindent">
+        </ul>
+        <p>
+            The next step is to add code that will expose the <font color="black"><code>FirstName</code>,
+                <code>MiddleName</code>, and <code>LastName</code> values as public properties in
+                Visual Basic 6.0.</font></p>
+        <h3 class="subHeading">
+            To add public properties</h3>
+        <div class="subSection">
+            <ol>
+                <li>
+                    <p>
+                        In the Code Editor, add the following code to expose the <font color="black"><code>FirstName</code>,
+                            <code>MiddleName</code>, and <code>LastName</code> values as properties.</font></p>
+                    <div class="code">
+                        <blockquote><pre>
+Public Property FirstNameText() As String
+    Get
+        Return FirstName.Text
+    End Get
+    Set(ByVal value As String)
+        FirstName.Text = value
+    End Set
+End Property
+Public Property MiddleNameText() As String
+    Get
+        Return MiddleName.Text
+    End Get
+    Set(ByVal value As String)
+        MiddleName.Text = value
+    End Set
+End Property
+Public Property LastNameText() As String
+    Get
+        Return LastName.Text
+    End Get
+    Set(ByVal value As String)
+        LastName.Text = value
+    End Set
+End Property
+                </pre></blockquote>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <ul class="noindent">
+        </ul>
+        <p>
+            <span codelanguage="other">Add the following code to expose the value of the <font
+                color="black"><code>FullName</code> label as a read-only property.</font></span></p>
+        <div class="code">
+            <blockquote><pre>
+<font color="navy">Public ReadOnly Property
+    FullNameText() As String<br>
+    Get<br>
+    Return FullName.Text<br>
+    End Get<br>
+End Property</font>
+    </pre></blockquote>
+        </div>
+        <ul class="noindent">
+        </ul>
+        <p>
+            Press F5 to run the program.</p>
+        <ul class="noindent">
+        </ul>
+        <p>
+            In the <b>UserControl TestContainer, scroll</b> to the bottom of the <b>Properties</b>
+            grid and select the <b>FirstNameText</b> property. Enter your name, and then select
+            the <b>FullNameText</b> property—the <b>FirstName</b> text box should display your
+            name, and the <b>FullNameText</b> property should match.</p>
+        <ul class="noindent">
+        </ul>
+        <p>
+            At this point the Interop UserControl is complete and tested in .NET&nbsp;— the next step is to create a project in Visual Basic 6.0 to consume
+            the control.</p>
+        <h3 class="subHeading">
+            To create a&nbsp;project in&nbsp;Visual Basic 6.0</h3>
+        <div class="subSection">
+            <ol>
+                <li>
+                    <p>
+                        On the <b>File</b> menu, click <b>New</b> <b>Project</b>.</p>
+                </li>
+                <li>
+                    <p>
+                        In the <b>New Project</b> dialog box, click <strong>Standard EXE</strong> <font color="black">
+                            and then click <b>OK</b>.</font></p>
+                </li>
+                <li>
+                    <p>
+                        On the <b>File</b> menu, click <b>Save Project</b>.</p>
+                </li>
+                <li>
+                    <p>
+                        In the <b>Save&nbsp;File As</b>&nbsp;dialog box, type&nbsp;<font color="black"><code>InteropControlTest.frm</code>
+                            and then click <b>Save</b>.</font></p>
+                </li>
+                <li>
+                    <p>
+                        In the <b>Save&nbsp;Project As</b>&nbsp;dialog box, type&nbsp;<font color="black"><code>InteropControlTest.vbp</code>
+                            and then click <b>Save</b>.</font></p>
+                </li>
+            </ol>
+        </div>
+        <p>
+            In the next step you will add the Interop UserControl to the Visual Basic 6.0 Toolbox.</p>
+        <h3 class="subHeading">
+            To add the Interop UserControl to the toolbox</h3>
+        <ol>
+            <li>
+                <p>
+                    On the&nbsp;<b>Project</b> menu, click <b>Components</b>.</p>
+            </li>
+            <li>
+                <p>
+                    In&nbsp;the&nbsp;<b>Components</b> dialog box,&nbsp;select the&nbsp;<strong>Controls</strong>
+                    tab.</p>
+            </li>
+            <li>
+                <p>
+                    Scroll down to the <strong>NamesUserControl</strong> and select it. Note that the
+                    <strong>Location</strong> is shown a "mscoree.dll" — this is the file that the .NET
+                    Framework uses to load Interop UserControls.</p>
+            </li>
+            <li>
+                <p>
+                    Check the box next to <strong>NamesUserControl</strong> and then click <strong>OK</strong>.
+                    The control should appear at the bottom of the <strong>Toolbox</strong>.</p>
+            </li>
+        </ol>
+        <p class="subSection">
+            The control is now ready to use as you would any other control. In the final step
+            you will add the control to the form, code a <strong>Validate</strong> event handler,
+            and test the control.</p>
+        <h3 class="subHeading">
+            To add the Interop UserControl and add Visual Basic 6.0 code</h3>
+        <ol>
+            <li>
+                <p>
+                    In the <strong>Toolbox</strong>, select the <strong>InteropUserControl</strong>
+                    and drag it onto the form. Resize it so that the textboxes are visible.&nbsp;</p>
+            </li>
+            <li>
+                <p>
+                    Add a&nbsp;<strong>CommandButton</strong> control to the form.</p>
+            </li>
+            <li>
+                <p>
+                    Double-click the <strong>InteropUserControl</strong> to open the <strong>Code Editor</strong>,
+                    and in the Events list select <strong>Validate</strong>.</p>
+            </li>
+            <li>
+                <p>
+                    In the <strong>Validate</strong> event handler add the following code:&nbsp;</p>
+                <div class="code">
+                    <blockquote>
+                        <pre>
+<font color="#000066">Private Sub InteropUserControl1_Validate(Cancel As Boolean)
+    <br>
+    If InteropUserControl1.FirstNameText = "" Or _
+    <br>
+    InteropUserControl1.MiddleNameText = "" Or _
+    <br>
+    InteropUserControl1.LastNameText = "" Then
+    <br>
+    MsgBox ("Please enter the complete name.")
+    <br>
+    Cancel = True<br>
+    End If<br>
+End Sub</font>
+            </pre>
+                    </blockquote>
+                </div>
+            </li>
+            <li>
+                <p>
+                    <span codelanguage="other">Press F5 to run the program. Enter your first and last name,
+                        leaving the middle name blank, and then press the <strong>Tab</strong> key. The
+                        message box should display.</span></p>
+            </li>
+        </ol>
+        <blockquote dir="ltr" style="margin-right: 0px">
+            <p>
+                &nbsp;<strong>Note&nbsp;</strong>&nbsp; If your Interop UserControl exposes custom
+                events, there is an additional step that you must take to enable the events. For
+                more information, see <a href="../How To/Interop User Control Events.html">How To: Handle
+                    Interop UserControl Events</a>.</p>
+        </blockquote>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

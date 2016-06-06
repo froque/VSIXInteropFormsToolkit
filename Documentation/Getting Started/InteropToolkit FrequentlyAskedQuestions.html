@@ -1,0 +1,138 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>InteropToolkit FrequentlyAskedQuestions</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">InteropToolkit FrequentlyAskedQuestions </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+<p><strong>When should I use an Interop UserControl vs an
+InteropForm?</strong></p>
+<p>Both InteropForms and Interop UserControls allow you to put .NET content in
+your Visual Basic 6.0 application, but they do so in different ways. The
+advantage of Interop UserControls is that you can extend your Visual Basic 6.0
+applications within the same form. InteropForms work well when you want to add
+an entirely new screen to your application, while UserControls are better
+suited to adding .NET content to an existing form.</p>
+<p>UserControls are also the best solution for Visual Basic 6.0 MDI forms — you
+can't use an InteropForm as an MDI child, but you can create an Interop
+UserControl and add it to an MDI child.</p>
+<p>Some key differences to keep in mind:</p>
+<ul>
+    <li>InteropForms use an attribute-based approach. To expose properties,
+    methods and&nbsp;events to your Visual Basic 6.0 application, use the
+    <strong>&lt;InteropProperty&gt;</strong> attribute and click
+    <strong>Tools</strong>-&gt;<strong>Generate InteropForm Wrapper
+    Classes</strong>. With Interop UserControls, you simply need to make the
+    members <strong>Public</strong> and then build in order for Visual Basic
+    6.0 to see them; there is no need to click
+    <strong>Tools</strong>-&gt;<strong>Generate</strong> InteropForm Wrapper
+    Classes.</li>
+    <li>Interop UserControls can only be used in the <strong>Visual Basic 6.0
+    Interop UserControl Library</strong> template, and InteropForms can only be
+    used in the <strong>Visual Basic 6.0 InteropForm Library</strong> template.
+    If you want to use both in a Visual Basic 6.0 application, you’ll need to
+    build a solution that contains one project for Forms and one project for
+    UserControls.</li>
+</ul>
+<p><strong>The events aren’t firing on my Interop UserControl, what do I
+do?</strong></p>
+<p>The mechanism for handling events on UserControls is different from
+Forms.&nbsp;For more information, see&nbsp;<a href=
+"../How To/Interop User Control Events.html">How To: Handle Interop UserControl
+Events</a>.&nbsp;</p>
+<p><strong>Can I&nbsp;create control arrays of Interop
+UserControls?</strong></p>
+<p>On a machine that has the .NET Framework 3.5 installed (even if you’re using
+the 2.0 framework), control arrays&nbsp;will work. The functionality to support
+this was not present in the .NET Framework 2.0. As a workaround you can either
+create multiple controls or use a <strong>VBControlExtender</strong> to
+dynamically add Interop UserControls to your form.</p>
+<p><strong>When building my project, I get the following error: “Unable to copy
+file "obj\Release\MyUserControl.dll" to
+"bin\Release\MyUserControl.dll"</strong></p>
+<p>The process cannot access the file 'bin\Release\MyUserControl.dll' because
+it is being used by another process. This usually means that the DLL is in use
+by Visual Basic 6.0. In order to rebuild the UserControl, the Visual Basic 6.0
+project that uses it must be closed. What you can do is set your <strong>Build
+Action</strong> in .NET to automatically load the Visual Basic 6.0 project,
+making it more convenient to work with the two projects at once. For more
+information on setting this up, see&nbsp;<a href=
+"../How To/How%20To%20Debug%20a%20Hybrid%20Application.html">How To: Debug a Hybrid
+Application</a>.</p>
+<p><strong>How do I handle Exceptions raised from the .NET side?</strong></p>
+<p>In order to use Visual Basic 6.0-style error handling to handle .NET
+exceptions, you can use the standard <strong>On Error</strong> syntax around
+any calls to Interop components (for example a public method on an Interop
+UserControl).</p>
+<p>This approach works well when the .NET code that&nbsp;caused the exception
+was explicitly called by Visual Basic 6.0 (For example, when&nbsp;a Visual
+Basic 6.0 method is on the call stack). However, there may be situations
+however where an exception is raised on the .NET side due to a user’s action
+(For example,&nbsp;clicking a button on an Interop UserControl). In this case
+throwing an exception directly will result in the .NET Unhandled Exception
+dialog (since the code that invoked the exception does not have Visual Basic
+6.0 code in the underlying call stack).</p>
+<p>For this situation it’s important to ensure that all your .NET code has
+<strong>Try/Catch/Finally</strong> blocks around it. When you catch an
+exception that you want to notify Visual Basic 6.0 about, use the
+<strong>RaiseApplicationEvent</strong> method on the
+<strong>EventMessenger</strong> class to notify Visual Basic 6.0 about the
+problem. For more information, see <a href=
+"../How To/How%20To%20Raise%20an%20Application-Level%20Event.html">How To: Raise an
+Application-Level Event</a>.</p>
+<p>To summarize, if the exception occurs in .NET code that was explicitly
+invoked by Visual Basic 6.0 code, you can use <strong>On Error</strong> on the
+Visual Basic 6.0 side and the <strong>Throw</strong> statement on the .NET
+side. If the exception occurs in .NET code that was explicitly invoked by the
+user, you must use the <strong>RaiseApplicationEvent</strong> method and then
+handle the resulting event on the Visual Basic 6.0 side.</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

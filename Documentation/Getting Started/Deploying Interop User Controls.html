@@ -1,0 +1,201 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>Deploying Interop User Controls</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">Deploying Interop User Controls </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+<p>As with InteropForm assembles, Interop UserControls must be registered on
+the client computer. You can deploy them using the same techniques described in
+the topic <a href="Hybrid%20Application%20Deployment.html">Hybrid Application
+Deployment</a>, or if you are deploying to computers running Windows XP or
+later, you can deploy them side-by-side using the techniques described later in
+the topic.</p>
+<p>For an example of deploying with a Visual Studio .NET Setup and Deployment
+project, see <a href="../How To/How To Deploy A Hybrid Application.html">How
+To: Deploy a Hybrid Application</a>.</p>
+<blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
+    <p><strong>Note:</strong> In&nbsp;most cases&nbsp;it is easier to deploy
+    using the methods described in <a href=
+    "../How To/How To Deploy A Hybrid Application.html">How To: Deploy a Hybrid
+    Application</a>. Deploying with Reg-Free COM requires more effort, but
+    works best when you want to have a minimal impact to your existing setup
+    package (i.e. a Setup created using the Package &amp; Deployment Wizard).
+    Since no additional registry entries are required, deploying your new
+    application is as simple as updating your package to copy the new .NET
+    .dlls and .manifest file to the application folder.</p>
+</blockquote>
+<p><strong>Deploying Side-by-side with Reg-Free COM</strong></p>
+<p>Windows XP provides a mechanism known as Reg-Free COM&nbsp;for deploying COM
+objects without requiring registry entries. This allows you to deploy Interop
+UserControls as&nbsp;.dll files that install in the same directory as your
+application .exe. If you include a .manifest file in the application directory,
+the .exe can find and use the Interop UserControl even though it is not
+registered as a COM object. This also allows you to deploy your Visual Basic
+6.0 application using the newer ClickOnce deployment technology, which does not
+support COM registration.</p>
+<p><strong>Note&nbsp;</strong>&nbsp; The Interop UserControl will still need to
+registered on the development machine, since Visual Basic 6.0 pre-dates
+Reg-Free COM.</p>
+<p>In order to deploy your Interop UserControl with Reg-Free COM, you will need
+both a client manifest (for the application) and a private assembly manifest
+(for the UserControl). The private assembly manifest is automatically generated
+by the Visual Basic 6.0 Interop UserControl template, but you need to create
+the client manifest yourself and add it to your Visual Basic 6.0 application
+directory.</p>
+<p>You can create the manifest file in the XML editor in Visual Studio .NET, or
+you can create it using a text editor such as Notepad. The following is an
+example of a client manifest:</p>
+<p><font face="Courier New">&lt;?xml version="1.0" encoding="UTF-8"
+standalone="yes"?&gt;<br>
+&lt;assembly xmlns="urn:schemas-microsoft-com:asm.v1"
+manifestVersion="1.0"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;assemblyIdentity type="win32" name="<em>MyApp</em>"
+version="1.0.0.0" processorArchitecture="x86" /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;dependency&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;dependentAssembly&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;assemblyIdentity type="win32" name="<em>MyUserControl</em>"
+version="1.0.0.0" /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/dependentAssembly&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/dependency&gt;<br>
+&lt;/assembly&gt;</font></p>
+<p>The name "<em>MyApp</em>" should be replaced by the name of your Visual
+Basic 6.0 .exe, and the name "<em>MyUserControl</em>" should be replaced by the
+name of your Interop UserControl .dll; the .exe and .dll extensions should not
+be included.&nbsp;In addition, the version numbers should be updated to match
+the versions of your .exe and .dll.</p>
+<p>The manifest file must be named <em>MyApp</em>.exe.manifest, where
+<em>MyApp</em> is the name of your Visual Basic 6.0 .exe. During deployment,
+the .exe, the client manifest, and the .dll must all be installed to the same
+directory on the client computer. When the application loads, Windows inspects
+the manifest and determines that the application uses Reg-Free COM, and then
+loads the .dll from the specified location.</p>
+<p><strong>Private Assembly Manifest</strong></p>
+<p>The&nbsp;Visual Basic 6.0 Interop UserControl template creates a private
+assembly manifest for your control named InteropUserControl.manifest. In most
+case you will never need to touch this file, but if you make changes to the
+name of the project or the class you will need to update the manifest to
+reflect your changes. You will also need to update this file if you add more
+than one Interop UserControl to your project (the first
+<strong>clrClass</strong> entry is automatically filled in, but additional ones
+must be&nbsp;added manually). The following is an example of a private assembly
+manifest; the italicized elements are the ones that might need to be
+changed:</p>
+<p><font face="Courier New">&lt;?xml version="1.0" encoding="UTF-8"
+standalone="yes"?&gt;<br>
+&lt;!-- You don't need to worry about anything in this file unless you're<br>
+&nbsp;&nbsp;&nbsp;&nbsp; using Reg-free COM. --&gt;<br>
+&lt;assembly xmlns="urn:schemas-microsoft-com:asm.v1"<br>
+ &nbsp; manifestVersion="1.0"&gt;<br>
+&lt;assemblyIdentity<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+type="win32"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+name="<em>MyUserControl</em>"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+version="1.0.0.0" /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;clrClass</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clsid="<em>
+{Insert GUID here}</em>"</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+progid="<em>MyUserControl.MyUserControlClass</em>"</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+threadingModel="Both"</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="<em>
+MyUserControl.MyUserControlClass</em>" &gt;</font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/clrClass&gt;</font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;clrClass</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clsid="<em>
+{Insert GUID here}</em>"</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+progid="<em>MyUserControl.SecondUserControlClass</em>"</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+threadingModel="Both"</font></p>
+<p><font face=
+"Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name="<em>
+MyUserControl.SecondUserControlClass</em>" &gt;</font></p>
+<p><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/clrClass&gt;</font><br>
+&lt;/assembly&gt;</p>
+<p>In the above example, the value for&nbsp;clsid&nbsp;would be
+the&nbsp;ClassID found in your COM registration section of the
+<em>UserControl</em>.vb file. For progid and name,
+<em>MyUserControl</em>&nbsp;would be the name of your UserControl assembly,
+and&nbsp;<em>MyUserControlClass</em>&nbsp;would be the&nbsp;name of your
+UserControl class. To add multiple UserControls in a single assembly, add a
+&lt;clrClass&gt; element for each UserControl.</p>
+<p>In addition, there is a hidden file named InteropUserControl.rc that must be
+updated when you change the project or class name. You can view this file in
+Solution Explorer by choosing Show All Files. The following is an example of
+the .rc file; the italicized elements are the ones that might need to be
+changed:</p>
+<p><font face="Courier New">#define RT_MANIFEST 24</font></p>
+<p><font face="Courier New">1 RT_MANIFEST
+<em>MyUserControl</em>.manifest</font></p>
+<p><font face="Courier New">101 BITMAP <em>MyUserControl</em>.bmp</font></p>
+<p><font face="Courier New"><font face="Verdana">For more information
+about&nbsp;Reg-Free COM, see <a href=
+"http://msdn2.microsoft.com/en-us/library/eew13bza.aspx">How to: Configure .NET
+Components for Registration-Free Activation</a>.</font></font></p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

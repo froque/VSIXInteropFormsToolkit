@@ -1,0 +1,109 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Create a Form Event</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Create a Form Event </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong><a name="CustomEvent"></a>Create a Form Event</strong></p>
+<p>Events defined in an InteropForm can be also exposed to Visual Basic
+6.0.&nbsp; To do so, decorate the custom event with the InteropFormEvent
+attribute.&nbsp; Events must be defined as a delegate that is defined in the
+assembly. Event delegates must be explicitly defined.</p>
+<div class="syntax">
+    &lt;InteropFormEvent()&gt; _<br>
+    Public Event SampleEvent As SampleEventHandler 
+    <p>Public Delegate Sub SampleEventHandler(ByVal sampleEventText As
+    String)</p>
+</div>
+<p>Defining events with implicit delegates (short-hand format where the
+delegate is automatically created) is not supported.</p>
+<div class="syntax">
+    ' do not define event with short-hand notation<br>
+    Public Event SampleEvent(ByVal sampleEventText As String)
+</div>
+<p>To quickly define an event use the InteropEvent snippet installed with the
+toolkit:&nbsp; Simply type interopevent+Tab and complete the event
+signature.</p>
+<p>Only certain Types may be used as&nbsp;delegate parameters.&nbsp; See
+<a href=
+"../Getting Started/Creating%20and%20Working%20with%20InteropForms.html#TypeRestrictions">Type
+Restrictions</a> for details.</p>
+<p>&nbsp;</p>
+<p><strong>Using System.EventArgs</strong></p>
+<p>There is an exception to the Type Restrictions for events.&nbsp;&nbsp;Events
+may be defined with System.EventArgs as part of the delegate signature.&nbsp;
+This is done because it is common to define an event using EventHandler as
+a&nbsp;the delegate.&nbsp; The signature of System.EventHandler is shown
+below.</p>
+<div class="syntax">
+    Public Delegate Sub EventHandler(ByVal sender As Object, ByVal e As
+    System.EventArgs)
+</div>
+<p>It is also common to create delegates that&nbsp;include parameters that are
+custom event argument classes that inherit from System.EventArgs.&nbsp;Defining
+events in this way should be considered an advanced topic for those comfortable
+with interop because the custom event argument class will need to properly be
+exposed to COM. An example is shown below:</p>
+<div class="syntax">
+    Public Delegate Sub EventHandler(ByVal sender As Object, ByVal e As
+    MyEventArgs) 
+    <p>Public Class MyEventArgs</p>
+    <p>&nbsp;&nbsp;&nbsp; Inherits System.EventArgs</p>
+    <p>&nbsp;&nbsp;&nbsp; ' custom implementation...</p>
+    <p>End Class</p>
+</div>
+<p>Note: To avoid COM interoperability issues, the signature exposed by the
+InteropForm will always be down cast to System.EventArgs.&nbsp; Therefore, the
+COM client (Visual Basic 6.0 code) will need to cast the event arguments back
+to the correct type to work with them.</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Create an Interop User Control</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Create an Interop User Control </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p>An Interop UserControl is created in Visual Studio .NET by opening a new
+project that uses the Visual Basic 6.0 Interop UserControl template. The
+resulting project looks and behaves like a Windows Control project, except that
+the resulting control class contains code that allows the control to be
+consumed in Visual Basic 6.0. An additional module, ActiveXControlHelpers.vb,
+contains additional functions that help provide interoperability.</p>
+<p>&nbsp;</p>
+<p><strong>To create an Interop UserControl project</strong></p>
+<ol>
+    <li>Open Visual Studio .NET.</li>
+    <li>On the <strong>File</strong> menu, click <strong>New
+    Project</strong>.</li>
+    <li>In the <strong>New Project</strong> dialog box, select the Visual Basic
+    node under <strong>Project types</strong>, and then select the
+    <strong>Visual Basic 6.0 Interop UserControl</strong> template under
+    <strong>My Templates</strong>.</li>
+    <li>Enter a name for the project and click <strong>OK</strong>.</li>
+</ol>
+<p>&nbsp;</p>
+<p>Additional Interop UserControls can be added to an existing project to
+provide a control library by using the Visual Basic 6.0 Interop UserControl
+item template. In this case, only the control template is added to the project;
+the ActiveXControlHelpers.vb module is shared between the controls.</p>
+<p>Note that the Interop UserControl item template is only available in Interop
+UserControl projects; it cannot be used in other project types.</p>
+<p>&nbsp;</p>
+<p><strong>To add another Interop UserControl</strong></p>
+<ol>
+    <li>In your Interop UserControl project, on the <strong>Project</strong>
+    menu click <strong>Add New Item</strong>.</li>
+    <li>In the <strong>Add New Item</strong> dialog box, select the
+    <strong>Visual Basic 6.0 Interop UserControl</strong> template under
+    <strong>MyTemplates</strong>.</li>
+    <li>Enter a name for the control and click <strong>OK</strong>.</li>
+</ol>
+<p><strong>Note:</strong> The icon that will be displayed in the Visual Basic
+6.0 Toolbox can be customized for each control. For information on how to do
+this, see the comments in the ActiveXControlHelpers.vb file in the Interop
+UserControl project.</p>
+<p>&nbsp;</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>

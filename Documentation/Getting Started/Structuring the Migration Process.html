@@ -1,0 +1,147 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>Structuring the Migration Process</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body id="hsbody" topmargin="0">
+    <input type="hidden" id="userDataCache" class="userDataStyle" name="userDataCache">
+    </input>
+    <input type="hidden" id="hiddenScrollOffset" name="hiddenScrollOffset"> </input>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">Structuring the Migration Process </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+        <p>
+            <strong>Context</strong></p>
+        <p>
+            Many companies continue to rely on Visual Basic 6.0 applications to support their
+            businesses. Microsoft has provided tools and guidance to help with the migration
+            of code from Visual Basic 6.0 to Visual Basic .NET that provides a smooth migration
+            process for much of that code. For Visual Basic 6.0 forms-based applications, however,
+            the migration experience&nbsp;can be&nbsp;less than optimal due to the differences
+            between the Visual Basic 6.0 and WinForms engines.&nbsp; In addition, the heavy
+            reliance on third-party controls by many Visual Basic 6.0 forms-based applications
+            adds to the complexity and number of&nbsp;issues faced when attempting to convert
+            the code.
+        </p>
+        <p>
+            The reality is that for all but the most basic forms-based applications the&nbsp;best
+            approach for migration is to create a new application in Visual Basic .NET and migrate
+            the functionality from the Visual Basic 6.0 application to the .NET application
+            manually. For many organizations, this is simply not an option for the following
+            reasons:
+        </p>
+        <ul>
+            <ul>
+                <li><strong>'All or Nothing' Model Not Always Acceptable:</strong> There may not be
+                    a business (or technological) justification for migrating 100% of an application's
+                    forms to .NET. Some organizations may want/need to continue leveraging their existing
+                    investment in Visual Basic 6.0 Forms and augment that investment with new functionality
+                    developed in .NET.
+                    <li><strong>Unacceptable Conversion Timeline:</strong> Migrating a large forms-based
+                        application from Visual Basic 6.0 to Visual Basic .NET can often take&nbsp;several
+                        months of development and testing. The timeline could be longer if functional changes
+                        or enhancements are included in the migration. Many organizations can not afford
+                        to go this long between releases of their LOB applications.
+                        <li><strong>Unacceptable Risk:</strong> Even if the code is converted from Visual Basic
+                            6.0 to .NET using a conversion tool, for many organizations it is an unacceptable
+                            level of risk to port an entire application from Visual Basic 6.0 to Visual Basic
+                            .NET in a single step. </li>
+            </ul>
+        </ul>
+        <p>
+            The primary goal of this Toolkit is to provide guidance and tools to help customers
+            build Hybrid Applications that will enable them to migrate their Visual Basic 6.0
+            forms-based applications to .NET in a phased manner that is aligned with both the
+            business and technology drivers.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Divide And Conquer</strong></p>
+        <p>
+            When deciding how to migrate an application, you must identify which pieces will
+            be moved to .NET in a given phase.&nbsp;&nbsp;&nbsp;From both a design and debugging
+            standpoint, the easiest way to proceed is to define logical <a href="../Reference/glossary.html">
+                subsystem</a>s of functionality.&nbsp; Each subsystem contains forms that are
+            closely related in business functionality, and have the most intimate relationships
+            and points of connectivity. Breaking an application into subsystems minimizes the
+            amount of communication that must flow through the Interop layer and therefore provides
+            a simpler development experience.&nbsp; In the installed <a href="../Sample Applications/Line of Business Hybrid Application.html">
+                Hybrid Sample Application</a>, Product, Order and Customer subsystems have been
+            defined.&nbsp;This exemplifies&nbsp;one subsystem that remains all Visual Basic
+            6.0 code, one that is made of both Visual Basic 6.0 and .NET components, and one
+            that has been fully migrated to .NET, respectively.</p>
+        <p>
+            <strong></strong>&nbsp;</p>
+        <p>
+            <strong>Cross-Subsystem Communication</strong></p>
+        <p>
+            While one goal should be to minimize the amount of interoperability points, different
+            subsystems can still communicate with each other.&nbsp; When communicating from
+            Visual Basic 6.0 to .NET, methods and properties should be called.&nbsp; When communicating
+            from .NET to Visual Basic 6.0, events should be raised.&nbsp; Some events make sense
+            to be raised directly from a form, e.g. in response to user interaction. Other events,
+            especially those that communicate a change in application state, may come from non-Form
+            objects.&nbsp; For information on raising events from .NET Forms see <a href="../How To/How To Create a Form Event.html">
+                How to Create&nbsp;a Custom Event</a>. For information on raising events from
+            .NET Forms see <a href="../How To/How To Raise an Application-Level Event.html">How to&nbsp;Raise
+                an Application-Level Event</a>.
+        </p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <strong>Start Building</strong></p>
+        <p>
+            Once you've decided what pieces to migrate to .NET you are ready to begin <a href="Creating and Working with InteropForms.html">
+                Creating and Working with InteropForms</a> and <a href="Walkthrough Creating and Consuming an Interop User Control.html">
+                    Creating and Working With Interop UserControls</a>.</p>
+        <a name="SeeAlsoBookmark"></a>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+    </div>
+</body>
+</html>
+

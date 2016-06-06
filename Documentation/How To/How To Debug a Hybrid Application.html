@@ -1,0 +1,194 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns:mshelp="http://msdn.microsoft.com/mshelp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="history" name="save">
+    <title>How To Debug a Hybrid Application</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/helpstudio.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/MSDN.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/tree.css">
+    <style type="text/css">
+        div#pagetop, div#pagetop table td, span#projecttitle, span#pagetitle
+        {
+            background-color: #90C8FF;
+            color: #000080;
+        }
+    </style>
+    <xml>
+        <MSHelp:RLTitle Title="Structuring the Migration Process"/>
+        <MSHelp:Attr Name="DocSet" Value="InteropFormToolkit2.0"/>
+        <MSHelp:Attr Name="TopicType" Value="kbRef"/>
+	  <MSHelp:Attr Name="DevLang" Value="VB"/>
+        <MSHelp:Keyword Index="F" Term="MicrosoftInteropFormToolkitIntroduction"/>
+    </xml>
+</head>
+<body>
+    <div id="pagetop">
+        <table width="100%" id="pagetoptable1">
+            <tr id="pagetoptable1row1">
+                <td align="left">
+                    <span id="projecttitle">Interop Forms Toolkit </span>
+                </td>
+                <td align="right">
+                    <span id="feedbacklink">
+                </td>
+                </span> </td>
+            </tr>
+            <tr id="pagetoptable1row2">
+                <td align="left" colspan="2">
+                    <span id="pagetitle">How To Debug a Hybrid Application </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mainbody">
+    <p><strong>Debugging Visual Basic 6.0 Code</strong></p>
+<p>Debugging Visual Basic 6.0 code in a Hybrid application is no different than
+debugging any other Visual Basic 6.0 project.&nbsp; Press F5 to run, set
+breakpoints, and debug as you normally would.&nbsp; There are two different
+methods for stepping into your .NET&nbsp;&nbsp;— by attaching
+to a process from Visual Studio .NET, or by setting a Start Action in Visual
+Studio .NET.</p>
+<p>&nbsp;</p>
+<p><strong>Debugging with Attach to Process</strong></p>
+<p>You will not be able to step into .NET code, however, without performing a
+few&nbsp;additional steps.&nbsp; Follow these steps to debug your .NET
+code:</p>
+<ol>
+    <li>Load&nbsp;your .NET project in Visual Studio .NET</li>
+    <li>Build the .NET project if it has not already been built</li>
+    <li>Load your Visual Basic 6.0 code in the Visual Basic 6.0 IDE</li>
+    <li>Run your application by pressing <strong>F5</strong> in the Visual
+    Basic 6.0 IDE (Note: You must do this once before attaching the .NET
+    debugger to properly load the .NET code)</li>
+    <li>In&nbsp;Visual Studio .NET,&nbsp;select&nbsp;<strong>Attach to
+    Process...</strong> from the <strong>Tools</strong> menu</li>
+    <li>In the dialog that appears, select the Visual Basic 6.0.exe process
+    (Note: because the Visual Basic 6.0 code runs within the Visual Basic 6.0
+    IDE, you&nbsp;must select this process to debug)</li>
+</ol>
+<p>&nbsp;</p>
+<p>You only need to repeat the steps above after rebuilding .NET code.&nbsp;
+The Visual Basic 6.0 IDE must be closed when rebuilding. After completing these
+steps,&nbsp;press <strong>F5</strong> in the Visual Basic 6.0 IDE to run, set
+breakpoints, and debug as you normally would.&nbsp;Remember that since the
+Visual Basic 6.0 IDE process is being debugged, you will not be able to
+navigate in the Visual Basic 6.0 code while stopped on a breakpoint.&nbsp;</p>
+<p>&nbsp;</p>
+<p style="MARGIN: 6pt 0in"><b><span style=
+"COLOR: black;">Debugging
+with Start external program</span></b></p>
+<p style=""><span style=
+"COLOR: black;">Instead of
+manually attaching to the process every time, you can configure your Visual
+Studio .NET project to automatically launch Visual Basic 6.0.&nbsp; To debug in
+Visual Studio .NET, you can&nbsp;set the debugger to start an external program,
+and pass it the path to the Visual Basic 6.0 application. When you run the
+project in Visual Studio .NET, your Visual Basic 6.0 project will be launched;
+you can then set breakpoints in Visual Basic 6.0 and step into the .NET code.
+<?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /?>
+</span></p>
+<p class="MsoNormal" style="MARGIN: 6pt 0in"><b><span style=
+"COLOR: black;">Note</span></b><span style="COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">
+: Both Interop UserControls and InteropForms cannot be built or debugged in
+Visual Studio .NET while an instance is open in Visual Basic 6.0.
+&nbsp;</span></p>
+<p class="MsoNormal" style="MARGIN: 6pt 0in"><b><span style=
+"COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Note</span></b><span style="COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">
+:&nbsp; If any changes are made in Visual Basic 6.0 during debugging you must
+explicitly save your changes.&nbsp;When you stop debugging in Visual Studio .NET, Visual Basic 6.0 will be terminated without prompting to save
+changes.</span></p>
+<p class="MsoNormal" style=
+"MARGIN: 6pt 0in 6pt 59.25pt; TEXT-INDENT: -0.25in; tab-stops: list .5in; mso-list: l1 level1 lfo4">
+<span style=
+"COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'; mso-fareast-font-family: Verdana; mso-bidi-font-family: Verdana">
+<span style="mso-list: Ignore">1.<span style=
+"FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span>
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">Close the
+Visual Basic 6.0 IDE.</span></p>
+<p class="MsoNormal" style=
+"MARGIN: 6pt 0in 6pt 59.25pt; TEXT-INDENT: -0.25in; tab-stops: list .5in; mso-list: l1 level1 lfo4">
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'; mso-fareast-font-family: Verdana; mso-bidi-font-family: Verdana">
+<span style="mso-list: Ignore">2.<span style=
+"FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span>
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">In Visual
+Studio .NET, in <b>Solution Explorer</b>&nbsp;right-click the <b>My Project</b>
+node&nbsp;and click <b>Open</b>.</span></p>
+<p class="MsoNormal" style=
+"MARGIN: 6pt 0in 6pt 59.25pt; TEXT-INDENT: -0.25in; tab-stops: list .5in; mso-list: l1 level1 lfo4">
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'; mso-fareast-font-family: Verdana; mso-bidi-font-family: Verdana">
+<span style="mso-list: Ignore">3.<span style=
+"FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span>
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">In
+the&nbsp;<b>Project Explorer</b>, select the <b>Debug</b> tab, and under
+<b>Start Action</b> select <b>Start external program</b>.</span></p>
+<p class="MsoNormal" style=
+"MARGIN: 6pt 0in 6pt 59.25pt; TEXT-INDENT: -0.25in; tab-stops: list .5in; mso-list: l1 level1 lfo4">
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'; mso-fareast-font-family: Verdana; mso-bidi-font-family: Verdana">
+<span style="mso-list: Ignore">4.<span style=
+"FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span>
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">In the text
+box,&nbsp;type vb6.exe. Note that if vb6.exe is not defined as an environment
+variable you may have to browse to your Visual Basic 6.0 directory in order to
+include the path.</span></p>
+<p class="MsoNormal" style=
+"MARGIN: 6pt 0in 6pt 59.25pt; TEXT-INDENT: -0.25in; tab-stops: list .5in; mso-list: l1 level1 lfo4">
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'; mso-fareast-font-family: Verdana; mso-bidi-font-family: Verdana">
+<span style="mso-list: Ignore">5.<span style=
+"FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span>
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">In the
+<b>Command line arguments</b> field, type&nbsp;the full path to your Visual
+Basic 6.0 project, i.e. <i>"C:\Program Files\My
+Projects\InteropProject.vbp"</i>. Note that the path and filename must be
+enclosed in quotes.</span></p>
+<p class="MsoNormal" style=
+"MARGIN: 6pt 0in 6pt 59.25pt; TEXT-INDENT: -0.25in; tab-stops: list .5in; mso-list: l1 level1 lfo4">
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'; mso-fareast-font-family: Verdana; mso-bidi-font-family: Verdana">
+<span style="mso-list: Ignore">6.<span style=
+"FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span>
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">In Visual
+Studio .NET, set breakpoints as needed and then press <b>F5</b>. The project
+will run and Visual Basic 6.0 will be launched and your project
+loaded.</span></p>
+<p class="MsoNormal" style=
+"MARGIN: 6pt 0in 6pt 59.25pt; TEXT-INDENT: -0.25in; tab-stops: list .5in; mso-list: l1 level1 lfo4">
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'; mso-fareast-font-family: Verdana; mso-bidi-font-family: Verdana">
+<span style="mso-list: Ignore">7.<span style=
+"FONT: 7pt 'Times New Roman'">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span>
+<span style=
+"  COLOR: black; FONT-FAMILY: 'Verdana','sans-serif'">In Visual
+Basic 6.0, set breakpoints as needed and then press <b>F5</b>. As the
+application executes and a breakpoint is hit, you can&nbsp;press
+<strong>F8</strong> to step into the Visual Studio .NET code. If you make
+changes in Visual Basic 6.0, you must save your changes before you stop
+debugging in Visual Studio .NET or your changes will be lost.</span></p>
+<p><strong>Static Memory</strong></p>
+<p>When you run an application in the Visual Basic 6.0 IDE, it&nbsp;does not
+launch in a new process.&nbsp; This has the negative side effect of not
+clearing out shared variables (static memory) between
+runs.&nbsp;</p>
+    </div>
+    <div id="pagefooter">
+        <p>
+            &nbsp;</p>
+        <p>
+            &nbsp;</p>
+        <hr size="1">
+        <p>
+            Copyright &copy; by Microsoft Corporation. All Rights Reserved.
+        </p>
+    </div>
+</body>
+</html>
