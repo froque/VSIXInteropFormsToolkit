@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- You don't need to worry about anything in this file unless you're
+     using RegFree COM.
+     
+     There should be an appropriate <clrClass> section for every Interop UserControl
+     defined in the project -->
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" 
+  manifestVersion="1.0">
+<assemblyIdentity
+            type="win32"
+            name="HybridAppControls"
+            version="1.0.0.0" />
+<clrClass
+            clsid="{0f19177f-929a-4147-b9e4-58910c127c50}"
+            progid="HybridAppControls.VB6Toolbar"
+            threadingModel="Both"
+            name="HybridAppControls.VB6Toolbar" >
+</clrClass>
+<clrClass
+            clsid="{11a048ba-293f-4ba4-abb0-7f7ccd0451b4}"
+            progid="HybridAppControls.StatusBar"
+            threadingModel="Both"
+            name="HybridAppControls.StatusBar" >
+</clrClass>
+</assembly>

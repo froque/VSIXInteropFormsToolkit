@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>InteropForm Constructor</Title>
+      <Author>Microsoft Corporation</Author>
+      <Description>Defines a parameterized .NET Constructor (Sub New) visible to Interop as Initialize method.</Description>
+      <Shortcut>InteropInit</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>Microsoft.InteropFormTools.dll</Assembly>
+        </Reference>
+      </References>
+      <Imports>
+        <Import>
+          <Namespace>Microsoft.InteropFormTools</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal>
+          <ID>parameter</ID>
+          <Type>String</Type>
+          <ToolTip>Replace with parameter for constructor.</ToolTip>
+          <Default>parameter</Default>
+        </Literal>
+        <Literal>
+          <ID>ParameterType</ID>
+          <ToolTip>Replace with the type of this parameter.  </ToolTip>
+          <Default>Integer</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="VB" Kind="method decl"><![CDATA[<InteropFormInitializer()> _
+Public Sub New(ByVal $parameter$ As $ParameterType$)
+	InitializeComponent()
+
+	' Add any initalizations here.
+End Sub
+
+Public Sub New()
+    ' This call is required by the Windows Form Designer.
+    InitializeComponent()
+
+    ' Add any initialization after the InitializeComponent() call.
+End Sub]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

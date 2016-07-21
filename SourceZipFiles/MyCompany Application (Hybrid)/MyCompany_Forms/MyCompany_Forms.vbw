@@ -1,0 +1,6 @@
+frmLogin = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+Globals = 0, 0, 0, 0, C
+frmOrderList = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+frmProductList = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+frmProductDetail = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+frmLaunchPad = 22, 29, 796, 897, , 44, 58, 690, 713, C
