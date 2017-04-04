@@ -11,4 +11,4 @@ http://www.codeproject.com/Articles/18954/Interop-Forms-Toolkit-Tutorial
 
 https://www.microsoft.com/en-us/download/details.aspx?id=3264
 
-https://interoptoolkitcs.codeplex.com
+https://interoptoolkitcs.codeplex.com (also imported to https://github.com/froque/interoptoolkitcs)
