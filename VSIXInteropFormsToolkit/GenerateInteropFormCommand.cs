@@ -37,6 +37,11 @@ namespace VSIXInteropFormsToolkit
         private readonly Package package;
 
         /// <summary>
+        /// Warning message presented flag for unsupported parameter types
+        /// </summary>
+        private bool DisplayWarningPresented = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GenerateInteropFormCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
@@ -164,6 +169,11 @@ namespace VSIXInteropFormsToolkit
         private void CreateInteropFormProxiesForDocument(List<CodeClass> interopFormClasses, Project currentAssembly, ProjectItem interopFormDoc)
         {
 
+            if (checkFileExists(currentAssembly, interopFormDoc))
+            {
+                return;
+            }
+
             if (interopFormClasses.Count <= 0)
                 return;
 
@@ -173,6 +183,7 @@ namespace VSIXInteropFormsToolkit
             namespace1.Name = "Interop";
             unit1.Namespaces.Add(namespace1);
             namespace1.Imports.Add(import1);
+            namespace1.Imports.Add(new CodeNamespaceImport("System"));
             foreach (CodeClass class1 in interopFormClasses)
             {
                 string text2 = class1.FullName;
@@ -258,9 +269,9 @@ namespace VSIXInteropFormsToolkit
                     declaration1.CustomAttributes.Add(new CodeAttributeDeclaration("System.Runtime.InteropServices.ComSourceInterfaces", new System.CodeDom.CodeAttributeArgument[] { new System.CodeDom.CodeAttributeArgument(new CodeTypeOfExpression(declaration2.Name)) }));
                 }
             }
-
-
+            
             ProjectItem generatedFolderItem = GetGeneratedFolderItem(currentAssembly);
+            
             FileInfo generatedItemInfo = getGeneratedItem(currentAssembly, generatedFolderItem, interopFormDoc);
 
             StreamWriter writer1 = new StreamWriter(generatedItemInfo.Create());
@@ -285,7 +296,7 @@ namespace VSIXInteropFormsToolkit
             {
                 d.Create();
             }
-
+            
             FileInfo infoGeneratedItem = new FileInfo(fullName);
             foreach (ProjectItem item in generatedFolderItem.ProjectItems)
             {
@@ -382,12 +393,18 @@ namespace VSIXInteropFormsToolkit
             bool flag1 = false;
             foreach (CodeParameter parameter1 in method.Parameters)
             {
+                var paramType = parameter1.Type.AsFullName;
                 if (!this.IsSupported(parameter1.Type))
                 {
-                    this.DisplayWarning(String.Format(Resource.InitMethodErrMsg, parameter1.Type.AsFullName, parameter1.Name, parameter1.Type.AsFullName));
-                    return;
+                    if(!DisplayWarningPresented)
+                    {
+                        this.DisplayWarning(String.Format(Resource.InitMethodWarningMsg));
+                        DisplayWarningPresented = true;
+                    }
+                    paramType = "Object";
+
                 }
-                CodeParameterDeclarationExpression expression1 = new CodeParameterDeclarationExpression(parameter1.Type.AsFullName, parameter1.Name);
+                CodeParameterDeclarationExpression expression1 = new CodeParameterDeclarationExpression(paramType, parameter1.Name);
                 method1.Parameters.Add(expression1);
                 if (flag1)
                 {
@@ -710,6 +727,24 @@ namespace VSIXInteropFormsToolkit
                 this.FindInteropFormClasses(assemblyProj, projItem.FileCodeModel.CodeElements, list2);
             }
             return list2;
+        }
+
+        private bool checkFileExists(Project currentAssembly, ProjectItem interopFormDoc)
+        {
+            FileInfo infoProjectItem = new FileInfo(interopFormDoc.get_FileNames(0));
+            string name = infoProjectItem.Name.Replace(infoProjectItem.Extension, ".wrapper" + infoProjectItem.Extension);
+            string folder = Path.GetDirectoryName(infoProjectItem.FullName.Replace(Path.GetDirectoryName(currentAssembly.FullName), Path.GetDirectoryName(currentAssembly.FullName) 
+                            + @"\" + Resource.INTEROP_FORM_PROXY_FOLDER_NAME));
+            string fullName = folder + @"\" + name;
+
+            if (File.Exists(fullName))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private DTE2 _applicationObject;

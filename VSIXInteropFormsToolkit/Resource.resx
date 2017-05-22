@@ -174,4 +174,7 @@
   <data name="PropertyErrMsg" xml:space="preserve">
     <value>Type {0} is not supported. Property {1} will not be generated.</value>
   </data>
+  <data name="InitMethodWarningMsg" xml:space="preserve">
+    <value>Parameters with unsupported types found for initialize method, type Object will be used instead.</value>
+  </data>
 </root>
