@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="VSIXInteropFormsToolkit.Filipe Roque.2422aed9-021d-477e-b4d6-ba06c0434e69" Version="1.1" Language="en-US" Publisher="Filipe Roque" />
+    <Identity Id="VSIXInteropFormsToolkit.Filipe Roque.2422aed9-021d-477e-b4d6-ba06c0434e69" Version="1.2" Language="en-US" Publisher="Filipe Roque" />
     <DisplayName>VSIXInteropFormsToolkit</DisplayName>
     <Description xml:space="preserve">Command tool to generate interop wrapper classes</Description>
   </Metadata>

@@ -26,3 +26,15 @@ Open project properties
 - Start application
 - Create project in newly opened VS window
 - Run tool
+
+
+## Upgrade
+ * [How to: Update a Visual Studio Extension](https://msdn.microsoft.com/en-us/library/dd997169.aspx)
+ ** edit version in source.extension.vsixmanifest
+ ** compile project
+ ** upload .vsix file to [Visual Studio Marketplace](https://visualstudiogallery.msdn.microsoft.com/)
+ 
+## Compile from console
+	nuget restore VSIXInteropFormsToolkit.sln
+	"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" /t:Clean /p:Configuration=Release "VSIXInteropFormsToolkit.sln"
+	"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" /p:Configuration=Release "VSIXInteropFormsToolkit.sln"
