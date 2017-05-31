@@ -169,6 +169,15 @@ namespace VSIXInteropFormsToolkit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameters with unsupported types found for initialize method, type Object will be used instead..
+        /// </summary>
+        internal static string InitMethodWarningMsg {
+            get {
+                return ResourceManager.GetString("InitMethodWarningMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to InteropForm Wrapper Classes.
         /// </summary>
         internal static string INTEROP_FORM_PROXY_FOLDER_NAME {
