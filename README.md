@@ -30,9 +30,9 @@ Open project properties
 
 ## Upgrade
  * [How to: Update a Visual Studio Extension](https://msdn.microsoft.com/en-us/library/dd997169.aspx)
- ** edit version in source.extension.vsixmanifest
- ** compile project
- ** upload .vsix file to [Visual Studio Marketplace](https://visualstudiogallery.msdn.microsoft.com/)
+   * edit version in source.extension.vsixmanifest
+   * compile project
+   * upload .vsix file to [Visual Studio Marketplace](https://visualstudiogallery.msdn.microsoft.com/)
  
 ## Compile from console
 	nuget restore VSIXInteropFormsToolkit.sln
