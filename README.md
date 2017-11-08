@@ -13,7 +13,7 @@ See:
 
 ### Info
 At present state this tool does not override files previously generated. 
-When forms with unsupported parameter types are found, the initialize method will be generated with a paramenter with the root type "Object".
+When forms with unsupported parameter types are found, the initialize method will be generated with a parameter with the root type "Object".
 
 ### How to Debug 
 
