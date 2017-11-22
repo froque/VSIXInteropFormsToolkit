@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSIXInteropFormsToolkit", "VSIXInteropFormsToolkit\VSIXInteropFormsToolkit.csproj", "{D1750130-1B60-4312-8AB7-AA1F89D416AC}"
 EndProject
