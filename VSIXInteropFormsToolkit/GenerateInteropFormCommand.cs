@@ -351,12 +351,12 @@ namespace VSIXInteropFormsToolkit
 
         private CodeSnippetStatement GetStatementInitializeForm(string typeName)
         {
-            return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, "\t\t\tFormInstance = {0} {1}(){2}", statementNew, typeName, statementTerminator));
+            return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, "            FormInstance = {0} {1}(){2}", statementNew, typeName, statementTerminator));
         }
 
         private CodeSnippetStatement GetStatementRegisterForm()
         {
-            return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, "\t\t\tRegisterFormInstance(){0}", statementTerminator));
+            return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, "            RegisterFormInstance(){0}", statementTerminator));
         }
 
 
@@ -389,7 +389,7 @@ namespace VSIXInteropFormsToolkit
             method1.Name = "Initialize";
             method1.Attributes = MemberAttributes.Public;
             method1.CustomAttributes.Add(new CodeAttributeDeclaration("System.Diagnostics.DebuggerStepThrough"));
-            string text1 = String.Format(CultureInfo.InvariantCulture, "\t\t\tFormInstance = {0} {1}(", statementNew, interopFormClass.FullName);
+            string text1 = String.Format(CultureInfo.InvariantCulture, "            FormInstance = {0} {1}(", statementNew, interopFormClass.FullName);
             bool flag1 = false;
             foreach (CodeParameter parameter1 in method.Parameters)
             {
@@ -414,9 +414,9 @@ namespace VSIXInteropFormsToolkit
                 flag1 = true;
             }
             text1 = text1 + ")" + statementTerminator;
-            method1.Statements.Add(new CodeSnippetStatement(String.Format("\t\t\tUnregisterFormInstance(){0}", statementTerminator)));
+            method1.Statements.Add(new CodeSnippetStatement(String.Format("            UnregisterFormInstance(){0}", statementTerminator)));
             method1.Statements.Add(new CodeSnippetStatement(text1));
-            method1.Statements.Add(new CodeSnippetStatement(String.Format("\t\t\tRegisterFormInstance(){0}", statementTerminator)));
+            method1.Statements.Add(new CodeSnippetStatement(String.Format("            RegisterFormInstance(){0}", statementTerminator)));
             proxyClass.Members.Add(method1);
         }
 
@@ -545,8 +545,8 @@ namespace VSIXInteropFormsToolkit
         private CodeSnippetStatement GetStatementCastFormInstance(CodeClass interopFormClass)
         {
             string statementFormat = (IsVB) ?
-                "\t\t\tDim castFormInstance As {0} = FormInstance" :
-                "\t\t\t{0} castFormInstance = ({0})FormInstance;";
+                "            Dim castFormInstance As {0} = FormInstance" :
+                "            {0} castFormInstance = ({0})FormInstance;";
 
             return new CodeSnippetStatement(String.Format(CultureInfo.InvariantCulture, statementFormat, interopFormClass.FullName));
         }
@@ -609,11 +609,11 @@ namespace VSIXInteropFormsToolkit
                     return null;
                 }
                 method1.ReturnType = new CodeTypeReference(method.Type.AsFullName);
-                text1 = String.Format("\t\t\t{0} ", statementReturn);
+                text1 = String.Format("            {0} ", statementReturn);
             }
             else
             {
-                text1 = "\t\t\t";
+                text1 = "            ";
             }
             text1 += "castFormInstance." + method.Name + "(";
             bool flag1 = false;
