@@ -1,7 +1,7 @@
 # VSIXInteropFormsToolkit
-Visual Studio 2015 extension, with command tool to generate interop wrapper classes. adapted from add-in.
+Visual Studio extension, with command tool to generate interop wrapper classes. adapted from add-in.
 
- * [VSIXInteropFormsToolkit in Visual Studio Marketplace](https://visualstudiogallery.msdn.microsoft.com/31b6a154-3c85-4892-8cea-797460579912) 
+ * [VSIXInteropFormsToolkit in Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=filiperoque.VSIXInteropFormsToolkit) 
 
 See:
 
@@ -14,6 +14,11 @@ See:
 ### Info
 At present state this tool does not override files previously generated. 
 When forms with unsupported parameter types are found, the initialize method will be generated with a parameter with the root type "Object".
+
+### Supported Environments
+
+ * Visual Studio 2015
+ * Visual Studio 2017
 
 ### How to Debug 
 
