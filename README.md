@@ -11,6 +11,10 @@ See:
  * [Interop Forms Toolkit for C#](https://interoptoolkitcs.codeplex.com) (also imported to https://github.com/froque/interoptoolkitcs)
  * [Similar extension in Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MiguelLe.MicrosoftInteropFormToolsInteropFormProxyGenerator) ([source code](https://github.com/hurcane/Microsoft.InteropFormTools.InteropFormProxyGenerator))
 
+### Microsoft InteropForms Toolkit 2.1 Documentation
+
+* [Microsoft InteropForms Toolkit 2.1 Online Documentation](http://froque.github.io/VSIXInteropFormsToolkit/)
+
 ### Info
 At present state this tool does not override files previously generated. 
 When forms with unsupported parameter types are found, the initialize method will be generated with a parameter with the root type "Object".
