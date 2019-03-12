@@ -1,3 +1,5 @@
 language: csharp
 
 solution: VSIXInteropFormsToolkit.sln
+script:
+  - msbuild /p:Configuration=Release /p:DeployExtension=false VSIXInteropFormsToolkit.sln
