@@ -141,6 +141,8 @@ namespace VSIXInteropFormsToolkit
 
         private void CreateInteropFormProxiesForProject(Project currentAssembly, ProjectItems projItemCollection)
         {
+            if (currentAssembly == null || currentAssembly.CodeModel == null) return;
+
             IsVB = (String.Compare(currentAssembly.CodeModel.Language, Resource.LanguageVB, false) == 0);
             foreach (ProjectItem item in projItemCollection)
             {
