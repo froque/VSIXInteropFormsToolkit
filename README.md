@@ -1,6 +1,8 @@
 # VSIXInteropFormsToolkit
 Visual Studio extension, with command tool to generate interop wrapper classes. adapted from add-in.
 
+[![Build Status](https://froque.visualstudio.com/VSIXInteropFormsToolkit/_apis/build/status/VSIXInteropFormsToolkit-.NET%20Desktop-CI?branchName=master)](https://froque.visualstudio.com/VSIXInteropFormsToolkit/_build/latest?definitionId=1&branchName=master)
+
  * [VSIXInteropFormsToolkit in Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=filiperoque.VSIXInteropFormsToolkit) 
 
 See:
