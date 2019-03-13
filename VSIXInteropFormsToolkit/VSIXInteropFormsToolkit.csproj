@@ -100,8 +100,8 @@
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.InteropFormTools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.InteropFormTools\1.0.0.0__b03f5f7f11d50a3a\Microsoft.InteropFormTools.dll</HintPath>
+      <HintPath>..\packages\interopformsredist.1.0.0\lib\net20\Microsoft.InteropFormTools.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
