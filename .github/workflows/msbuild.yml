@@ -1,0 +1,17 @@
+name: .NET
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Build app for release
+      run: /p:Configuration=Release /p:DeployExtension=false "VSIXInteropFormsToolkit.sln"
