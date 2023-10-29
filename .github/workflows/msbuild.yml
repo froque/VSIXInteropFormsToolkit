@@ -16,3 +16,8 @@ jobs:
 
     - name: Build app for release
       run: msbuild /p:Configuration=Release /p:DeployExtension=false VSIXInteropFormsToolkit.sln
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: VSIXInteropFormsToolkit.vsix
+        path: VSIXInteropFormsToolkit\bin\Release\VSIXInteropFormsToolkit.vsix
