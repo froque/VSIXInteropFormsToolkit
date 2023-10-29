@@ -16,6 +16,8 @@ jobs:
       with:
         vs-version: '[17,18)'
 
+    - run: msbuild /t:Restore VSIXInteropFormsToolkit.sln
+      
     - name: Build app for release
       run: msbuild /p:Configuration=Release /p:DeployExtension=false VSIXInteropFormsToolkit.sln
       
