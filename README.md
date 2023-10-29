@@ -25,6 +25,8 @@ When forms with unsupported parameter types are found, the initialize method wil
 
  * Visual Studio 2015
  * Visual Studio 2017
+ * Visual Studio 2019
+ * Visual Studio 2022
 
 ### How to Debug 
 
@@ -40,12 +42,11 @@ Open project properties
 
 
 ## Upgrade
- * [How to: Update a Visual Studio Extension](https://msdn.microsoft.com/en-us/library/dd997169.aspx)
+ * Update a Visual Studio extension](https://learn.microsoft.com/en-us/visualstudio/extensibility/how-to-update-a-visual-studio-extension?view=vs-2022)
    * edit version in source.extension.vsixmanifest
    * compile project
    * upload .vsix file to [Visual Studio Marketplace](https://visualstudiogallery.msdn.microsoft.com/)
  
 ## Compile from console
-	nuget restore VSIXInteropFormsToolkit.sln
-	"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" /t:Clean /p:Configuration=Release "VSIXInteropFormsToolkit.sln"
-	"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" /p:Configuration=Release /p:DeployExtension=false "VSIXInteropFormsToolkit.sln"
+	"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" /t:Clean /p:Configuration=Release "VSIXInteropFormsToolkit.sln"
+	"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" /p:Configuration=Release /p:DeployExtension=false "VSIXInteropFormsToolkit.sln"
