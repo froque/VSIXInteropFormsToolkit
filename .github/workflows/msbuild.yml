@@ -14,4 +14,4 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Build app for release
-      run: /p:Configuration=Release /p:DeployExtension=false "VSIXInteropFormsToolkit.sln"
+      run: msbuild /p:Configuration=Release /p:DeployExtension=false "VSIXInteropFormsToolkit.sln"
