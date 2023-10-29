@@ -9,9 +9,19 @@ jobs:
     runs-on: windows-latest
 
     steps:
-
+    - uses: actions/checkout@v2
+    
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
+      with:
+        vs-version: '[17,18)'
 
+    - run: msbuild /t:Restore VSIXInteropFormsToolkit.sln
+      
     - name: Build app for release
-      run: /p:Configuration=Release /p:DeployExtension=false "VSIXInteropFormsToolkit.sln"
+      run: msbuild /p:Configuration=Release /p:DeployExtension=false VSIXInteropFormsToolkit.sln
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: VSIXInteropFormsToolkit.vsix
+        path: VSIXInteropFormsToolkit\bin\Release\VSIXInteropFormsToolkit.vsix
