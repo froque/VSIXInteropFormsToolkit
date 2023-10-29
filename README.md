@@ -48,5 +48,6 @@ Open project properties
    * upload .vsix file to [Visual Studio Marketplace](https://visualstudiogallery.msdn.microsoft.com/)
  
 ## Compile from console
+	"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" /t:Restore "VSIXInteropFormsToolkit.sln"
 	"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" /t:Clean /p:Configuration=Release "VSIXInteropFormsToolkit.sln"
 	"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" /p:Configuration=Release /p:DeployExtension=false "VSIXInteropFormsToolkit.sln"
